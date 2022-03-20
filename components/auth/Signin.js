@@ -6,15 +6,22 @@ import {
   Keyboard,
 } from "react-native";
 import { Button, Layout, Text, Input, Icon } from "@ui-kitten/components";
-
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import NQButton from "../tools/NQButton";
+import NQInput from "../tools/NQInput";
+import NQPassword from "../tools/NQPassword";
+import authStore from "../../stores/authStore";
 
 const Signin = () => {
   const [value, setValue] = React.useState("");
   const [value1, setValue1] = React.useState("");
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-
+  const Navigation = useNavigation();
+  const user = {
+    username: value,
+    password: value1,
+  };
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
@@ -37,28 +44,48 @@ const Signin = () => {
   };
 
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
+  const handleSubmit = () => {
+    authStore.signin(user, Navigation);
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Layout
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text category="h1"> Nassiq</Text>
-          <Input
-            placeholder="Username"
-            value={value}
-            onChangeText={(nextValue) => setValue(nextValue)}
+          <Layout
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Text category="h1"> Nassiq</Text>
+          </Layout>
+
+          <NQInput value={value} setValue={setValue} />
+          <NQPassword
+            value1={value1}
+            setValue1={setValue1}
+            style={{
+              marginTop: 10,
+            }}
           />
 
-          <Input
-            value={value1}
-            placeholder="Password"
-            secureTextEntry={secureTextEntry}
-            accessoryRight={renderIcon}
-            onChangeText={(nextValue) => setValue1(nextValue)}
-          />
-          <Button>BUTTON</Button>
-          <NQButton txt={"hello"} />
+          <Layout
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <NQButton txt={"Sign in"} onclick={handleSubmit} />
+
+            <Layout style={{ flexDirection: "row" }}>
+              <Text>Not a user?</Text>
+              <Text
+                style={{
+                  marginLeft: 5,
+                  textDecorationLine: "underline",
+                }}
+                status="primary"
+              >
+                Sign up
+              </Text>
+            </Layout>
+          </Layout>
         </Layout>
       </TouchableWithoutFeedback>
     </SafeAreaView>
