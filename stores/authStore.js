@@ -27,6 +27,7 @@ class AuthStore {
       const response = await instance.post("/auth/signin", userData);
       const { token } = response.data;
       this.setUser(token);
+
       navigation.replace("Home");
 
       // await profileStore.getProfiles();
@@ -42,7 +43,6 @@ class AuthStore {
       instance.defaults.headers.common.Authorization = null;
       this.user = null;
       AsyncStorage.removeItem("token2");
-      // navigation.replace("Signin");
     } catch (error) {
       console.log(error);
     }
