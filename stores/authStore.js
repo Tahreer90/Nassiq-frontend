@@ -11,9 +11,12 @@ class AuthStore {
 
   signup = async (userData, navigation) => {
     try {
-      const response = await instance.post("/user/signup", userData);
+      const response = await instance.post("/auth/signup", userData);
       const { token } = response.data;
       this.setUser(token);
+
+      // await profileStore.getProfiles();
+      navigation.replace("Home");
     } catch (error) {
       console.log(error);
     }
@@ -21,10 +24,15 @@ class AuthStore {
 
   signin = async (userData, navigation) => {
     try {
-      const response = await instance.post("/user/signin", userData);
-      console.log("response", userData);
+      const response = await instance.post("/auth/signin", userData);
       const { token } = response.data;
       this.setUser(token);
+
+      navigation.replace("Home");
+
+      // await profileStore.getProfiles();
+
+      // navigation.replace("Profile");
     } catch (error) {
       console.log(error);
     }
