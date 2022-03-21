@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
   Keyboard,
+  Image,
 } from "react-native";
 import { Button, Layout, Text, Input, Icon } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
@@ -57,6 +58,11 @@ const Signin = () => {
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
             <Text category="h1"> Nassiq</Text>
+            <Image
+              source={{
+                uri: "assets/Checklist-pana.png",
+              }}
+            />
           </Layout>
 
           <NQInput value={value} setValue={setValue} />
@@ -71,7 +77,7 @@ const Signin = () => {
           <Layout
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
-            <NQButton txt={"Sign in"} onclick={handleSubmit} />
+            <NQButton txt={"Log in"} onclick={handleSubmit} />
 
             <Layout style={{ flexDirection: "row" }}>
               <Text>Not a user?</Text>
@@ -81,8 +87,9 @@ const Signin = () => {
                   textDecorationLine: "underline",
                 }}
                 status="primary"
+                onPress={() => Navigation.replace("Signup")}
               >
-                Sign up
+                Register
               </Text>
             </Layout>
           </Layout>
