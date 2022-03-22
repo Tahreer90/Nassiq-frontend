@@ -10,6 +10,7 @@ import Signup from "../auth/Signup";
 import HomeMain from "../Home";
 import ProfilePage from "../ProfilePage";
 import AddTask from "../AddTask";
+import GroupMemberList from "../GroupMemberList";
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
@@ -20,6 +21,7 @@ const HomeNavigator = () => (
     <Screen name="HomeMain" component={HomeMain} />
     <Screen name="ProfilePage" component={ProfilePage} />
     <Screen name="AddTask" component={AddTask} />
+    <Screen name="GroupMemberList" component={GroupMemberList} />
     <Screen name="Details" component={Details} />
     <Screen name="Signin" component={Signin} />
     <Screen name="Signup" component={Signup} />
