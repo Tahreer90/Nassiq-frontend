@@ -71,9 +71,9 @@ const Signin = () => {
           <Layout
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
-            <NQButton txt={"Sign in"} onclick={handleSubmit} />
+            <NQButton txt={"Log in"} onclick={handleSubmit} />
 
-            <Layout style={{ flexDirection: "row" }}>
+            <Layout style={{ flexDirection: "row", marginTop: 10 }}>
               <Text>Not a user?</Text>
               <Text
                 style={{
@@ -81,8 +81,9 @@ const Signin = () => {
                   textDecorationLine: "underline",
                 }}
                 status="primary"
+                onPress={() => Navigation.replace("Signup")}
               >
-                Sign up
+                Register
               </Text>
             </Layout>
           </Layout>
