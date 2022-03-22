@@ -42,7 +42,6 @@ class AuthStore {
       instance.defaults.headers.common.Authorization = null;
       this.user = null;
       AsyncStorage.removeItem("token2");
-      // navigation.replace("Signin");
     } catch (error) {
       console.log(error);
     }

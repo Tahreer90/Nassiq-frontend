@@ -3,12 +3,12 @@ import { Input } from "@ui-kitten/components";
 
 import React from "react";
 
-const NQInput = ({ value, setValue }) => {
+const NQInput = ({ value, setValue, placeholder }) => {
   return (
     <View>
       <Input
         style={styles.inpt}
-        placeholder="Username"
+        placeholder={placeholder ?? "Username"}
         value={value}
         onChangeText={(nextValue) => setValue(nextValue)}
       />
