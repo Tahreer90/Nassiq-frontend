@@ -74,7 +74,7 @@ const Signup = () => {
           >
             <NQButton txt={"Register"} onclick={handleSubmit} />
 
-            <Layout style={{ flexDirection: "row" }}>
+            <Layout style={{ flexDirection: "row", marginTop: 10 }}>
               <Text
                 style={{
                   marginLeft: 5,

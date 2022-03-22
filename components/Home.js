@@ -9,7 +9,7 @@ import { Button, Layout, Text, Input, Icon } from "@ui-kitten/components";
 
 import React from "react";
 
-const Home = () => {
+const HomeMain = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -23,6 +23,6 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeMain;
 
 const styles = StyleSheet.create({});

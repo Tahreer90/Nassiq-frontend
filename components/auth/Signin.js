@@ -79,7 +79,7 @@ const Signin = () => {
           >
             <NQButton txt={"Log in"} onclick={handleSubmit} />
 
-            <Layout style={{ flexDirection: "row" }}>
+            <Layout style={{ flexDirection: "row", marginTop: 10 }}>
               <Text>Not a user?</Text>
               <Text
                 style={{

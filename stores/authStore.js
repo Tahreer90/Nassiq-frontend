@@ -16,7 +16,7 @@ class AuthStore {
       this.setUser(token);
 
       // await profileStore.getProfiles();
-      navigation.replace("Home");
+      navigation.replace("Lists");
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +27,7 @@ class AuthStore {
       const response = await instance.post("/auth/signin", userData);
       const { token } = response.data;
       this.setUser(token);
-
-      navigation.replace("Home");
+      navigation.replace("Lists");
 
       // await profileStore.getProfiles();
 

@@ -9,7 +9,6 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { Navigation } from "./components/navigation/Navigation";
 import { ThemeContext } from "./components/navigation/theme-context";
 import myTheme from "./theme.json";
-
 export default () => {
   const [theme, setTheme] = useState("light");
 
