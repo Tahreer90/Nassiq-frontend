@@ -14,7 +14,9 @@ import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
+  if (authStore.user) navigation.replace("Lists");
+
   const [value, setValue] = React.useState("");
   const [value1, setValue1] = React.useState("");
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
