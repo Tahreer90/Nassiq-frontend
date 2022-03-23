@@ -51,7 +51,7 @@ const Profile = () => {
           level="2"
         >
           <Pressable
-            onPress={() => Navigation.navigate("ProfilePage")}
+            onPress={() => Navigation.replace("ProfilePage")}
             style={{
               flex: 1.5,
             }}
