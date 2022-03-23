@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
   Keyboard,
+  TextInput,
 } from "react-native";
 import {
   Button,
@@ -13,12 +14,17 @@ import {
   Icon,
   Avatar,
 } from "@ui-kitten/components";
-import React from "react";
+import React, { useState } from "react";
 import NQInput from "./tools/NQInput";
 import NQButton from "./tools/NQButton";
-import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  Entypo,
+  FontAwesome,
+} from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
+import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 
 const AddTask = () => {
   const Navigation = useNavigation();
@@ -26,67 +32,148 @@ const AddTask = () => {
   const handleAdd = () => {
     Navigation.replace("Lists");
   };
+
+  const [inputSaver, setInputSaver] = useState("");
+  console.log(inputSaver);
+  const [list, setList] = useState([]);
+  const handlePress = (event) => {
+    console.log("enter");
+    setList([...list, inputSaver]);
+    setInputSaver("");
+  };
+  console.log(list);
+
+  const taskList = list.map((task) => (
+    <Layout
+      style={{
+        flexDirection: "row",
+        borderColor: "black",
+        borderWidth: 1,
+        marginRight: 160,
+        borderRadius: 13,
+        padding: 5,
+        marginBottom: 5,
+        alignContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text category="h6">{task}</Text>
+      <FontAwesome
+        name="trash-o"
+        size={22}
+        color="black"
+        style={{ position: "absolute", right: 10 }}
+      />
+    </Layout>
+  ));
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <Layout style={{ flex: 1, justifyContent: "center" }}>
-          <Layout style={{ flex: 1 }}>
-            <Layout style={{ left: 70, top: 25 }}>
-              <Layout style={{ left: 21, top: 18 }}>
-                <Text>Hello</Text>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}> */}
+      <Layout style={{ flex: 1, justifyContent: "center" }}>
+        <Layout style={{ flex: 1 }}>
+          <Layout style={{ left: 70, top: 25 }}>
+            <Layout style={{ left: 21, top: 18 }}>
+              <Text>Hello</Text>
+            </Layout>
+            <Layout
+              style={{
+                flexDirection: "row",
+                marginTop: 20,
+                marginLeft: 20,
+              }}
+            >
+              <Text category="h3">Full Name</Text>
+              <MaterialCommunityIcons
+                name="map-marker-check"
+                size={31}
+                color="red"
+                style={{ right: 30, position: "absolute", marginTop: 5 }}
+              />
+            </Layout>
+          </Layout>
+          <Avatar
+            style={{ bottom: 30, left: 20 }}
+            size="giant"
+            source={require("../assets/icon.png")}
+          />
+        </Layout>
+        <Layout style={{ flex: 3, marginLeft: 25 }}>
+          <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
+            ADD TASK
+          </Text>
+          <ScrollView
+            keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="true"
+          >
+            <Layout style={{ flex: 1 }}>
+              <Layout style={{ flex: 1, flexDirection: "row" }}>
+                <TextInput
+                  style={{
+                    width: "65%",
+                    marginRight: 10,
+                    borderColor: "black",
+                    borderWidth: 1,
+                    borderRadius: 12,
+                    padding: 5,
+                  }}
+                  value={inputSaver}
+                  onChangeText={setInputSaver}
+                  placeholder="type your task here"
+                  returnKeyType="default"
+                  returnKeyLabel="ADD"
+                  onEndEditing={(r) => handlePress(r)}
+
+                  //   onSubmitEditing={}
+                ></TextInput>
+
+                <Button style={{ width: "30%" }}>urgent</Button>
               </Layout>
+
               <Layout
                 style={{
-                  flexDirection: "row",
+                  flex: 1,
                   marginTop: 20,
-                  marginLeft: 20,
+                  marginLeft: 10,
                 }}
               >
-                <Text category="h3">Full Name</Text>
-                <MaterialCommunityIcons
-                  name="map-marker-check"
-                  size={31}
-                  color="red"
-                  style={{ right: 30, position: "absolute", marginTop: 5 }}
-                />
+                {taskList}
+                {/* <Text
+                    category="h6"
+                    style={{
+                      borderColor: "black",
+                      borderWidth: 1,
+                      marginRight: 170,
+                      borderRadius: 13,
+                      padding: 5,
+                      marginBottom: 5,
+                    }}
+                  >
+                    Fahad
+                  </Text>
+                  <FontAwesome
+                    name="trash-o"
+                    size={22}
+                    color="black"
+                    style={{ top: 9 }}
+                  /> */}
               </Layout>
             </Layout>
-            <Avatar
-              style={{ bottom: 30, left: 20 }}
-              size="giant"
-              source={require("../assets/icon.png")}
-            />
-          </Layout>
-          <Layout style={{ flex: 3, marginLeft: 25 }}>
-            <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
-              ADD TASK
-            </Text>
-            <ScrollView>
-              <NQInput placeholder="type the task here" category="h6"></NQInput>
-              <NQInput placeholder="type the task here" category="h6"></NQInput>
-              <NQInput placeholder="type the task here" category="h6"></NQInput>
-            </ScrollView>
-            <Entypo
-              name="plus"
-              size={40}
-              color="red" //onPress={}
-            />
-            <Text style={{ bottom: 29, left: 40 }}>Add more</Text>
-          </Layout>
-          <Layout
-            style={{
-              flex: 1,
-              alignItems: "center",
-              left: 125,
-              flexDirection: "row",
-              justifyContent: "start",
-            }}
-          >
-            <Text onPress={() => Navigation.goBack()}>Cancel</Text>
-            <NQButton size="large" txt="Save" onclick={handleAdd} />
-          </Layout>
+          </ScrollView>
         </Layout>
-      </TouchableWithoutFeedback>
+        <Layout
+          style={{
+            flex: 1,
+            alignItems: "center",
+            left: 125,
+            flexDirection: "row",
+            justifyContent: "start",
+          }}
+        >
+          <Text onPress={() => Navigation.goBack()}>Cancel</Text>
+          <NQButton size="large" txt="Save" onclick={handleAdd} />
+        </Layout>
+      </Layout>
+      {/* </TouchableWithoutFeedback> */}
     </SafeAreaView>
   );
 };
