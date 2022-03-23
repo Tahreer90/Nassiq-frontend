@@ -14,9 +14,10 @@ import NQInput from "../tools/NQInput";
 import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 
-const Signin = () => {
-  const [value, setValue] = React.useState("");
-  const [value1, setValue1] = React.useState("");
+const Signin = ({ navigation }) => {
+  if (authStore.user) navigation.replace("Lists");
+  const [value, setValue] = React.useState(""); //username
+  const [value1, setValue1] = React.useState(""); //password
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   const Navigation = useNavigation();
   const user = {
@@ -64,6 +65,20 @@ const Signin = () => {
             source={require("../../assets/Checklist-pana.png")}
             style={{ width: 200, height: 200 }}
           />
+          <Layout
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text category="h1"> Nassiq</Text>
+            <Image
+              source={{
+                uri: "assets/Checklist-pana.png",
+              }}
+            />
+          </Layout>
           <NQInput value={value} setValue={setValue} />
           <NQPassword
             value1={value1}
@@ -87,6 +102,28 @@ const Signin = () => {
             >
               Register
             </Text>
+
+          <Layout
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <NQButton txt={"Log in"} onclick={handleSubmit} />
+            <Layout style={{ flexDirection: "row", marginTop: 10 }}>
+              <Text>Not a user?</Text>
+              <Text
+                style={{
+                  marginLeft: 5,
+                  textDecorationLine: "underline",
+                }}
+                status="primary"
+                onPress={() => Navigation.replace("Signup")}
+              >
+                Register
+              </Text>
+            </Layout>
           </Layout>
         </Layout>
       </TouchableWithoutFeedback>

@@ -20,6 +20,7 @@ class TaskStore {
     try {
       const taskResponse = await instance.get(`/task/${groupId}`);
       this.tasks = taskResponse.data;
+      return this.tasks;
     } catch (error) {
       console.log("error message", error);
     }

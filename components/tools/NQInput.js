@@ -3,7 +3,7 @@ import { Input } from "@ui-kitten/components";
 
 import React from "react";
 
-const NQInput = ({ value, setValue, placeholder }) => {
+const NQInput = ({ value, setValue, placeholder, size }) => {
   return (
     <View>
       <Input
