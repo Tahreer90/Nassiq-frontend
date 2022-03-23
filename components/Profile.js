@@ -6,6 +6,7 @@ import {
   Keyboard,
   Image,
   Switch,
+  Pressable,
 } from "react-native";
 import { Button, Layout, Text, Input, Icon } from "@ui-kitten/components";
 import {
@@ -18,12 +19,14 @@ import {
 import React, { useState } from "react";
 import { ThemeContext } from "../components/navigation/theme-context";
 import authStore from "../stores/authStore";
+import { useNavigation } from "@react-navigation/core";
 
 const Profile = () => {
   const [image, setImage] = useState(
     "https://i.pinimg.com/474x/b8/3a/bb/b83abbca857139568bb690c69d7bad68.jpg"
   );
   const [userName, setUserName] = useState("");
+  const Navigation = useNavigation();
 
   const themeContext = React.useContext(ThemeContext);
   // themeContext.toggleTheme
@@ -47,31 +50,38 @@ const Profile = () => {
           }}
           level="2"
         >
-          <Layout
+          <Pressable
+            onPress={() => Navigation.navigate("ProfilePage")}
             style={{
-              flex: 1,
-              flexDirection: "row",
-              margin: 10,
-              borderBottomWidth: 2,
-              borderBottomColor: "#F5F5FF",
-              //   backgroundColor: "#F1F1F5",
+              flex: 1.5,
             }}
-            level="2"
           >
-            <AntDesign
-              name="user"
-              color="#FD6B68"
-              size={40}
-              style={{ marginLeft: 20 }}
-            />
-            <Text style={styles.text}>Profile info</Text>
-            <MaterialIcons
-              name="arrow-forward-ios"
-              size={24}
-              color="black"
-              style={{ position: "absolute", right: 10, top: 13 }}
-            />
-          </Layout>
+            <Layout
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                margin: 10,
+                borderBottomWidth: 2,
+                borderBottomColor: "#F5F5FF",
+                //   backgroundColor: "#F1F1F5",
+              }}
+              level="2"
+            >
+              <AntDesign
+                name="user"
+                color="#FD6B68"
+                size={40}
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.text}>Profile info</Text>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={24}
+                color="black"
+                style={{ position: "absolute", right: 10, top: 13 }}
+              />
+            </Layout>
+          </Pressable>
           <Layout
             style={{
               flex: 1,

@@ -18,8 +18,14 @@ import NQInput from "./tools/NQInput";
 import NQButton from "./tools/NQButton";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 const AddTask = () => {
+  const Navigation = useNavigation();
+
+  const handleAdd = () => {
+    Navigation.replace("Lists");
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -67,8 +73,17 @@ const AddTask = () => {
             />
             <Text style={{ bottom: 29, left: 40 }}>Add more</Text>
           </Layout>
-          <Layout style={{ flex: 1, alignItems: "center", left: 125 }}>
-            <NQButton size="large" txt="Save"></NQButton>
+          <Layout
+            style={{
+              flex: 1,
+              alignItems: "center",
+              left: 125,
+              flexDirection: "row",
+              justifyContent: "start",
+            }}
+          >
+            <Text onPress={() => Navigation.goBack()}>Cancel</Text>
+            <NQButton size="large" txt="Save" onclick={handleAdd} />
           </Layout>
         </Layout>
       </TouchableWithoutFeedback>

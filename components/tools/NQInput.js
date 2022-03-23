@@ -10,7 +10,6 @@ const NQInput = ({ value, setValue, placeholder }) => {
         style={styles.inpt}
         placeholder={placeholder ?? "Username"}
         value={value}
-        onChangeText={(nextValue) => setValue(nextValue)}
       />
     </View>
   );

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import React from "react";
 import NQAdd from "./tools/NQAdd";
 import NQMenu from "./tools/NQMenu";
@@ -12,9 +19,10 @@ import NQProfile from "./tools/NQProfile";
 import groupStore from "../stores/groupStore";
 import taskStore from "../stores/taskStore";
 import { observer } from "mobx-react-lite";
+import { useNavigation } from "@react-navigation/core";
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
-
+  const Navigation = useNavigation();
   const groupList = groupStore.groups.map((group) => {
     console.log(group._id);
 
@@ -42,7 +50,9 @@ const Lists = () => {
             <NQMenu />
             <MapIcon />
           </Layout>
-          <NQProfile />
+          <Pressable onPress={() => Navigation.navigate("Profile")}>
+            <NQProfile />
+          </Pressable>
         </Layout>
         {/* <Layout
           style={{
