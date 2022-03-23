@@ -29,7 +29,7 @@ const ProfilePage = () => {
   const [value3, setValue3] = React.useState("");
 
   const handleSave = () => {
-    Navigation.replace("Profile");
+    Navigation.goBack();
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
