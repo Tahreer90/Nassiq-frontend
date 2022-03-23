@@ -20,12 +20,16 @@ import groupStore from "../stores/groupStore";
 import taskStore from "../stores/taskStore";
 import { observer } from "mobx-react-lite";
 import { useNavigation } from "@react-navigation/core";
+import authStore from "../stores/authStore";
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const Navigation = useNavigation();
-  const groupList = groupStore.groups.map((group) => {
-    console.log(group._id);
+  const groups = authStore.user.group;
 
+  console.log("MMMMMMM", authStore.user);
+  console.log(">>OOOOOOOOOOOO", groups);
+
+  const groupList = groups.map((group) => {
     return <NQList group={group} key={group._id} />;
   });
 
