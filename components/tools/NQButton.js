@@ -14,10 +14,11 @@ export default NQButton;
 
 const styles = StyleSheet.create({
   btn: {
-    // width: 334,
-    // height: 55,
+    width: 334,
+    height: 55,
     borderRadius: 100,
     fontSize: 18,
     fontWeight: "700",
+    // marginBottom: 200,
   },
 });

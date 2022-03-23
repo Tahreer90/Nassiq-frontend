@@ -20,25 +20,38 @@ import React, { useState } from "react";
 import { ThemeContext } from "../components/navigation/theme-context";
 import authStore from "../stores/authStore";
 import { useNavigation } from "@react-navigation/core";
+import { baseUrl } from "../stores/instance";
 
 const Profile = () => {
-  const [image, setImage] = useState(
-    "https://i.pinimg.com/474x/b8/3a/bb/b83abbca857139568bb690c69d7bad68.jpg"
-  );
-  const [userName, setUserName] = useState("");
+  const username = authStore.user;
+
   const Navigation = useNavigation();
 
   const themeContext = React.useContext(ThemeContext);
   // themeContext.toggleTheme
+  const handleSubmit = () => {
+    authStore.signout();
+    Navigation.replace("Signin");
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Layout style={{ flex: 1, alignItems: "center" }}>
         <Layout style={styles.profileContainer}>
           <Text style={styles.profile}>Profile</Text>
-          <Fontisto name="bell" size={24} color="black" style={styles.bell} />
+          <MaterialIcons
+            name="logout"
+            size={24}
+            color="#FD6B68"
+            style={styles.bell}
+            onPress={handleSubmit}
+          />
         </Layout>
-        <Image style={styles.avatar} size={100} source={{ uri: image }} />
-        <Text style={styles.user}>username</Text>
+        <Image
+          style={styles.avatar}
+          size={100}
+          source={{ uri: baseUrl + "/" + username.image }}
+        />
+        <Text style={styles.user}>{username.username}</Text>
       </Layout>
       <Layout flex={2}>
         <Layout

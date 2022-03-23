@@ -3,7 +3,7 @@ import { Input, Icon } from "@ui-kitten/components";
 
 import React from "react";
 
-const NQPassword = ({ value1, setValue1 }) => {
+const NQPassword = ({ value1, setValue1, placeholder }) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
   const toggleSecureEntry = () => {
@@ -34,7 +34,7 @@ const NQPassword = ({ value1, setValue1 }) => {
       <Input
         style={styles.inpt}
         value={value1}
-        placeholder="Password"
+        placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         accessoryRight={renderIcon}
         onChangeText={(nextValue) => setValue1(nextValue)}
