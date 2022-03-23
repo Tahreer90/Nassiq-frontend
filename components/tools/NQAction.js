@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Actionsheet, Box, HStack } from "native-base";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 function NQAction({ isOpen, onClose }) {
+  const Navigation = useNavigation();
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
-        <Actionsheet.Item>
+        <Actionsheet.Item onPress={() => Navigation.navigate("AddTask")}>
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
             <AntDesign name="plus" size={24} color="#FD6B68" />
             <Text style={{ marginLeft: 7 }}>Add Task</Text>

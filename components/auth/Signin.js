@@ -55,7 +55,11 @@ const Signin = () => {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Layout
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Text category="h1"> Nassiq</Text>
             <Image
@@ -75,7 +79,11 @@ const Signin = () => {
           />
 
           <Layout
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <NQButton txt={"Log in"} onclick={handleSubmit} />
 
