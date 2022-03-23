@@ -6,7 +6,7 @@ import { Details } from "./Details";
 import Signin from "../auth/Signin";
 import Profile from "../Profile";
 import HomeMain from "../Home";
-import ProfilePage from "../ProfilePage";
+import ProfilePage from "../ProfileSetting";
 import AddTask from "../AddTask";
 import GroupMemberList from "../GroupMemberList";
 import Signup from "../auth/Signup";
@@ -14,7 +14,7 @@ import Lists from "../Lists";
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Lists">
+  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
 

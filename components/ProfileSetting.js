@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
   Keyboard,
+  Image,
 } from "react-native";
 import {
   Button,
@@ -20,15 +21,18 @@ import NQButton from "./tools/NQButton";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import authStore from "../stores/authStore";
+import { baseUrl } from "../stores/instance";
 
 const ProfilePage = () => {
   const Navigation = useNavigation();
-  const [value, setValue] = React.useState("");
-  const [value1, setValue1] = React.useState("");
+  const username = authStore.user;
+  const [value, setValue] = React.useState(username.username);
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
-
+  const updateInfo = { newusername: value, newpassword: value2 };
   const handleSave = () => {
+    authStore.updateUserInfo(updateInfo);
     Navigation.goBack();
   };
   return (
@@ -49,26 +53,24 @@ const ProfilePage = () => {
                   marginTop: 20,
                 }}
               >
-                <Text category="h1">Info</Text>
-                <FontAwesome
-                  name="bell-o"
-                  size={24}
-                  color="black"
-                  style={{ right: 15, position: "absolute", marginTop: 5 }}
-                />
+                <Text category="h5">Edit Profile</Text>
               </Layout>
-              <Avatar
-                style={{ marginTop: 20, left: 20 }}
-                size="giant"
-                source={require("../assets/icon.png")}
+              <Image
+                style={styles.image}
+                size={50}
+                source={{ uri: baseUrl + "/" + username.image }}
               />
             </Layout>
 
             <Layout style={{ flex: 3, marginLeft: 25 }}>
-              <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
-                username
+              <Text
+                style={{ marginTop: 20, marginBottom: 15, marginLeft: 5 }}
+                category="h6"
+              >
+                Username
               </Text>
               <NQInput
+                placeholder={username.username}
                 style={{}}
                 category="h6"
                 value={value}
@@ -76,46 +78,42 @@ const ProfilePage = () => {
               >
                 username
               </NQInput>
-              <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
-                old password
-              </Text>
-              <NQPassword
-                style={{}}
-                category="h6"
-                value1={value1}
-                setValue1={setValue1}
-              >
-                old password
-              </NQPassword>
 
               <Text
-                style={{ marginTop: 20, marginBottom: 15 }}
+                style={{ marginTop: 20, marginBottom: 15, marginLeft: 5 }}
                 category="h6"
-              ></Text>
+              >
+                New Password
+              </Text>
               <NQPassword
                 style={{}}
                 category="h6"
                 value1={value2}
                 setValue1={setValue2}
-                new
-                password
+                placeholder="new password"
               >
                 new password
               </NQPassword>
-              <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
-                confirm password
+              <Text
+                style={{ marginTop: 20, marginBottom: 15, marginLeft: 5 }}
+                category="h6"
+              >
+                Confirm Password
               </Text>
               <NQPassword
                 style={{}}
                 category="h6"
                 value1={value3}
                 setValue1={setValue3}
+                placeholder="confirm new password"
               >
                 confirm password
               </NQPassword>
             </Layout>
             <Layout style={{ flex: 1, alignItems: "center" }}>
-              <NQButton txt="Save" onclick={handleSave}></NQButton>
+              <Button onPress={handleSave} style={styles.btn}>
+                Save
+              </Button>
               <Button
                 appearance="ghost"
                 status="primary"
@@ -133,4 +131,23 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: {
+    width: 334,
+    height: 45,
+    borderRadius: 100,
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  image: {
+    marginTop: 20,
+    height: 100,
+    width: 100,
+    borderRadius: 70,
+    alignSelf: "center",
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "500",
+  },
+});

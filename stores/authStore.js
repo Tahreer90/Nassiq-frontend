@@ -61,6 +61,14 @@ class AuthStore {
     }
   };
 
+  updateUserInfo = async (updateInfo) => {
+    try {
+      const response = await instance.post("/auth/update", updateInfo);
+      const { token } = response.data;
+      this.setUser(token);
+    } catch (error) {}
+  };
+
   checkForToken = async () => {
     try {
       const token = await AsyncStorage.getItem("token2");

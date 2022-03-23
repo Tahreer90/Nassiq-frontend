@@ -52,54 +52,41 @@ const Signin = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Layout
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: 100,
+          }}
         >
-          <Layout
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text category="h1"> Nassiq</Text>
-            <Image
-              source={{
-                uri: "assets/Checklist-pana.png",
-              }}
-            />
-          </Layout>
-
+          <Text category="h1"> Nassiq</Text>
+          <Image
+            source={require("../../assets/Checklist-pana.png")}
+            style={{ width: 200, height: 200 }}
+          />
           <NQInput value={value} setValue={setValue} />
           <NQPassword
             value1={value1}
             setValue1={setValue1}
+            placeholder="password"
             style={{
-              marginTop: 10,
+              marginTop: 30,
             }}
           />
 
-          <Layout
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <NQButton txt={"Log in"} onclick={handleSubmit} />
-
-            <Layout style={{ flexDirection: "row", marginTop: 10 }}>
-              <Text>Not a user?</Text>
-              <Text
-                style={{
-                  marginLeft: 5,
-                  textDecorationLine: "underline",
-                }}
-                status="primary"
-                onPress={() => Navigation.replace("Signup")}
-              >
-                Register
-              </Text>
-            </Layout>
+          <NQButton txt={"Log in"} onclick={handleSubmit} />
+          <Layout style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text>Not a user?</Text>
+            <Text
+              style={{
+                marginLeft: 5,
+                textDecorationLine: "underline",
+              }}
+              status="primary"
+              onPress={() => Navigation.replace("Signup")}
+            >
+              Register
+            </Text>
           </Layout>
         </Layout>
       </TouchableWithoutFeedback>
