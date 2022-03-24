@@ -144,12 +144,6 @@ const Profile = () => {
               size="sm"
               style={{ position: "absolute", right: 10, top: 13 }}
             />
-            {/* <MaterialIcons
-              name="arrow-forward-ios"
-              size={24}
-              color="black"
-              style={{ position: "absolute", right: 10, top: 13 }}
-            /> */}
           </Layout>
           <Layout
             style={{
@@ -183,7 +177,6 @@ const Profile = () => {
               margin: 10,
               borderBottomWidth: 2,
               borderBottomColor: "#F1F1F5",
-              //   backgroundColor: "#F1F1F5",
             }}
             level="2"
           >
