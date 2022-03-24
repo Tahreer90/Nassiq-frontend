@@ -27,8 +27,8 @@ const Lists = () => {
 
   const groups = authStore.user ? authStore.user.group : [];
 
-  console.log("MMMMMMM", authStore.user);
-  console.log(">>OOOOOOOOOOOO", groups);
+  //console.log("MMMMMMM", authStore.user);
+  //console.log(">>OOOOOOOOOOOO", groups);
 
   const groupList = groups
     ? groups.map((group) => {
