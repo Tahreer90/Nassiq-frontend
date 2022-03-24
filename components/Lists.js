@@ -24,14 +24,17 @@ import authStore from "../stores/authStore";
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const Navigation = useNavigation();
-  const groups = authStore.user.group;
+
+  const groups = authStore.user ? authStore.user.group : [];
 
   console.log("MMMMMMM", authStore.user);
   console.log(">>OOOOOOOOOOOO", groups);
 
-  const groupList = groups.map((group) => {
-    return <NQList group={group} key={group._id} />;
-  });
+  const groupList = groups
+    ? groups.map((group) => {
+        return <NQList group={group} key={group._id} />;
+      })
+    : [];
 
   const handleAdd = () => {};
   return (

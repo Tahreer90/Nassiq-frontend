@@ -31,6 +31,7 @@ const Profile = () => {
   // themeContext.toggleTheme
   const handleSubmit = () => {
     authStore.signout();
+    Navigation.goBack();
     Navigation.replace("Signin");
   };
   return (

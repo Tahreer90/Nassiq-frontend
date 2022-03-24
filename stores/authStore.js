@@ -39,9 +39,9 @@ class AuthStore {
 
   signout = async (navigation) => {
     try {
+      AsyncStorage.removeItem("token2");
       instance.defaults.headers.common.Authorization = null;
       this.user = null;
-      AsyncStorage.removeItem("token2");
     } catch (error) {
       console.log(error);
     }
@@ -63,8 +63,9 @@ class AuthStore {
 
   updateUserInfo = async (updateInfo) => {
     try {
-      const response = await instance.post("/auth/update", updateInfo);
+      const response = await instance.put("/auth/update", updateInfo);
       const { token } = response.data;
+      this.signout();
       this.setUser(token);
     } catch (error) {}
   };

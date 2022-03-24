@@ -6,7 +6,7 @@ import authStore from "../../stores/authStore";
 import { baseUrl } from "../../stores/instance";
 
 const NQProfile = () => {
-  const username = authStore.user;
+  const username = authStore.user ? authStore.user : { image: "" };
 
   return (
     <View
