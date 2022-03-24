@@ -28,6 +28,7 @@ import authStore from "../stores/authStore";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
+import { HStack, VStack } from "native-base";
 
 const AddTask = ({ route }) => {
   const { groupId } = route.params;
@@ -42,7 +43,7 @@ const AddTask = ({ route }) => {
     setList([...list, { name: inputSaver }]);
     setInputSaver("");
   };
-  console.log("MOONNNNNN", list);
+  // console.log("MOONNNNNN", list);
 
   const taskList = list.map((task) => (
     <Layout
@@ -105,7 +106,10 @@ const AddTask = ({ route }) => {
           />
         </Layout>
         <Layout style={{ flex: 3, marginLeft: 25 }}>
-          <Text style={{ marginTop: 20, marginBottom: 15 }} category="h6">
+          <Text
+            style={{ marginTop: 20, marginBottom: 15, marginLeft: 3 }}
+            category="h6"
+          >
             ADD TASK
           </Text>
           <ScrollView
@@ -120,12 +124,12 @@ const AddTask = ({ route }) => {
                     marginRight: 10,
                     borderColor: "black",
                     borderWidth: 1,
-                    borderRadius: 12,
+                    borderRadius: 15,
                     padding: 5,
                   }}
                   value={inputSaver}
                   onChangeText={setInputSaver}
-                  placeholder="type your task here"
+                  placeholder="type the task here"
                   returnKeyType="default"
                   returnKeyLabel="ADD"
                   onEndEditing={(r) => handlePress(r)}
@@ -133,7 +137,9 @@ const AddTask = ({ route }) => {
                   //   onSubmitEditing={}
                 ></TextInput>
 
-                <Button style={{ width: "30%" }}>urgent</Button>
+                <Button style={{ width: "30%", borderRadius: 15 }}>
+                  urgent
+                </Button>
               </Layout>
 
               <Layout
@@ -171,13 +177,14 @@ const AddTask = ({ route }) => {
           style={{
             flex: 1,
             alignItems: "center",
-            left: 125,
-            flexDirection: "row",
+            left: 5,
+            flexDirection: "column",
             justifyContent: "start",
           }}
         >
+          <NQButton txt="Save" onclick={handleAdd} />
+
           <Text onPress={() => Navigation.goBack()}>Cancel</Text>
-          <NQButton size="large" txt="Save" onclick={handleAdd} />
         </Layout>
       </Layout>
       {/* </TouchableWithoutFeedback> */}
