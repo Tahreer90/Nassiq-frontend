@@ -50,12 +50,11 @@ class AuthStore {
   setUser = async (token) => {
     try {
       const decodedToken = decode(token);
-      this.user = decodedToken;
+      const res = await instance.get(`/auth/${decodedToken._id}`);
+      this.user = res.data;
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
       await AsyncStorage.setItem("token2", token);
       const newUser = await AsyncStorage.getItem("token2");
-      //console.log(newUser);
-      //console.log("newwwww", this.user);
     } catch (error) {
       console.log(error);
     }

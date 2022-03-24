@@ -24,24 +24,25 @@ import {
 } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
+import authStore from "../stores/authStore";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
+import { baseUrl } from "../stores/instance";
+import taskStore from "../stores/taskStore";
 
-const AddTask = () => {
+const AddTask = ({ route }) => {
+  const { groupId } = route.params;
   const Navigation = useNavigation();
-
-  const handleAdd = () => {
-    Navigation.replace("Lists");
-  };
+  const username = authStore.user;
 
   const [inputSaver, setInputSaver] = useState("");
   console.log(inputSaver);
   const [list, setList] = useState([]);
   const handlePress = (event) => {
     console.log("enter");
-    setList([...list, inputSaver]);
+    setList([...list, { name: inputSaver }]);
     setInputSaver("");
   };
-  console.log(list);
+  console.log("MOONNNNNN", list);
 
   const taskList = list.map((task) => (
     <Layout
@@ -57,7 +58,7 @@ const AddTask = () => {
         alignItems: "center",
       }}
     >
-      <Text category="h6">{task}</Text>
+      <Text category="h6">{task.name}</Text>
       <FontAwesome
         name="trash-o"
         size={22}
@@ -66,6 +67,12 @@ const AddTask = () => {
       />
     </Layout>
   ));
+  const handleAdd = () => {
+    list.forEach(
+      async (item) => await taskStore.addTask(item, groupId, Navigation)
+    );
+    Navigation.replace("Lists");
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}> */}
@@ -82,7 +89,7 @@ const AddTask = () => {
                 marginLeft: 20,
               }}
             >
-              <Text category="h3">Full Name</Text>
+              <Text category="h3">{username.username}</Text>
               <MaterialCommunityIcons
                 name="map-marker-check"
                 size={31}
@@ -94,7 +101,7 @@ const AddTask = () => {
           <Avatar
             style={{ bottom: 30, left: 20 }}
             size="giant"
-            source={require("../assets/icon.png")}
+            source={{ uri: baseUrl + "/" + username.image }}
           />
         </Layout>
         <Layout style={{ flex: 3, marginLeft: 25 }}>

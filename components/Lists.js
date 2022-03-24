@@ -5,8 +5,9 @@ import {
   SafeAreaView,
   ScrollView,
   Pressable,
+  Dimensions,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import NQAdd from "./tools/NQAdd";
 import NQMenu from "./tools/NQMenu";
 import MapIcon from "./tools/MapIcon";
@@ -24,11 +25,12 @@ import authStore from "../stores/authStore";
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const Navigation = useNavigation();
-
+  const [page, setPage] = useState(0);
+  let groupId = 0;
   const groups = authStore.user ? authStore.user.group : [];
+  const { width, height } = Dimensions.get("window");
 
-  //console.log("MMMMMMM", authStore.user);
-  //console.log(">>OOOOOOOOOOOO", groups);
+  console.log("paaaage : ", page / width + 1);
 
   const groupList = groups
     ? groups.map((group) => {
@@ -37,6 +39,12 @@ const Lists = () => {
     : [];
 
   const handleAdd = () => {};
+
+  const handleScroll = (event) => {
+    setPage(event.nativeEvent.contentOffset.x);
+  };
+  groupId = page / width;
+  console.log("AAAAAA", groups[groupId]);
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1 }}>
@@ -74,13 +82,18 @@ const Lists = () => {
             scrollEventThrottle={16}
             pagingEnabled={true}
             style={{ flex: 1 }}
+            onScroll={(event) => handleScroll(event)}
           >
             {groupList}
           </ScrollView>
         </Layout>
         <Layout style={{ flex: 1, alignItems: "center" }}>
           <NQAdd txt="+" onclick={onOpen} />
-          <NQAction isOpen={isOpen} onClose={onClose} />
+          <NQAction
+            isOpen={isOpen}
+            onClose={onClose}
+            groupId={groups[groupId]}
+          />
         </Layout>
       </SafeAreaView>
     </NativeBaseProvider>
