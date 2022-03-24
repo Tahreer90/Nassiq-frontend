@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import groupStore from "./groupStore";
 import { instance } from "./instance";
 
 class TaskStore {
@@ -23,6 +24,18 @@ class TaskStore {
       return this.tasks;
     } catch (error) {
       console.log("error message", error);
+    }
+  };
+
+  addTask = async (list, groupId, Navigation) => {
+    try {
+      const response = await instance.post(`/task/new/${groupId}`, list);
+
+      this.tasks.push(response.data);
+      await groupStore.fetchGroups();
+      // Navigation.replace("Lists");
+    } catch (error) {
+      console.log(error);
     }
   };
 }

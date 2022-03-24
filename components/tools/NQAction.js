@@ -4,12 +4,14 @@ import { Actionsheet, Box, HStack } from "native-base";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-function NQAction({ isOpen, onClose }) {
+function NQAction({ isOpen, onClose, groupId }) {
   const Navigation = useNavigation();
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
-        <Actionsheet.Item onPress={() => Navigation.navigate("AddTask")}>
+        <Actionsheet.Item
+          onPress={() => Navigation.navigate("AddTask", { groupId: groupId })}
+        >
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
             <AntDesign name="plus" size={24} color="#FD6B68" />
             <Text style={{ marginLeft: 7 }}>Add Task</Text>

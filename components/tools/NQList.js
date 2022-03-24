@@ -26,13 +26,29 @@ const NQList = ({ group }) => {
   console.log("???????????", tasks);
   const taskList = tasks.map((task) => {
     return (
-      <Layout style={{ flexDirection: "row" }}>
+      <Layout
+        style={{
+          flexDirection: "row",
+          marginBottom: 15,
+        }}
+      >
         {/* <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        /> */}
-        <Text key={task._id} style={styles.txt}>
+            value={isSelected}
+            onValueChange={setSelection}
+            style={styles.checkbox}
+          /> */}
+        <Text
+          key={task._id}
+          style={{
+            fontSize: 16,
+            fontWeight: "500",
+            width: 190,
+            backgroundColor: "#242D65",
+            color: "#FFFFFF",
+            marginBottom: 1,
+            height: 30,
+          }}
+        >
           {task.name}
         </Text>
       </Layout>
@@ -47,14 +63,17 @@ const NQList = ({ group }) => {
               color: "#FFFFFF",
               marginTop: 25,
               fontSize: 18,
-              fontWeight: "500",
+              fontWeight: "700",
+              marginBottom: 20,
             }}
           >
             {foundGroup ? foundGroup.name : ""}
           </Text>
         </View>
 
-        <View>{taskList}</View>
+        <ScrollView>
+          <View>{taskList}</View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -73,11 +92,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     marginVertical: 30,
-  },
-  txt: {
-    color: "#FFFFFF",
-    marginTop: 25,
-    fontSize: 18,
-    fontWeight: "500",
   },
 });
