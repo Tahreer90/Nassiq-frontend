@@ -14,7 +14,7 @@ import Lists from "../Lists";
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
+  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Lists">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
 

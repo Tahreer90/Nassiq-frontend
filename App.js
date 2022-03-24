@@ -6,6 +6,7 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { Navigation } from "./components/navigation/Navigation";
 import { ThemeContext } from "./components/navigation/theme-context";
 import myTheme from "./theme.json";
+import { NativeBaseProvider } from "native-base";
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default () => {
@@ -17,13 +18,13 @@ export default () => {
   };
 
   return (
-    <>
+    <NativeBaseProvider>
       <IconRegistry icons={EvaIconsPack} />
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <ApplicationProvider {...eva} theme={{ ...eva[theme], ...myTheme }}>
           <Navigation />
         </ApplicationProvider>
       </ThemeContext.Provider>
-    </>
+    </NativeBaseProvider>
   );
 };
