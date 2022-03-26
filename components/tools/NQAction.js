@@ -7,6 +7,7 @@ import GroupCreateModal from "../GroupCreateModal";
 
 function NQAction({ isOpen, onClose, groupId }) {
   const [showModal, setShowModal] = useState(false);
+  const [showModal1, setShowModal1] = useState(false);
 
   const Navigation = useNavigation();
   return (
@@ -36,7 +37,11 @@ function NQAction({ isOpen, onClose, groupId }) {
             <MaterialIcons name="group-add" size={24} color="#FD6B68" />
             <Text style={{ marginLeft: 7 }}>Join a Group</Text>
           </HStack>
-          <GroupCreateModal showModal={showModal} setShowModal={setShowModal} />
+          <GroupCreateModal
+            showModal={showModal1}
+            setShowModal={setShowModal1}
+            modalName="join"
+          />
         </Actionsheet.Item>
         <Actionsheet.Item onPress={onClose}>Cancel</Actionsheet.Item>
       </Actionsheet.Content>
