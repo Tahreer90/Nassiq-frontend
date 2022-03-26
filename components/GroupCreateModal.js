@@ -2,14 +2,17 @@ import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Center, FormControl, Input, Modal, Button } from "native-base";
 import groupStore from "../stores/groupStore";
+import { useNavigation } from "@react-navigation/native";
 
 const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
-  const [groupName, setGroupName] = useState("");
+  const Navigation = useNavigation();
 
+  const [groupName, setGroupName] = useState("");
+  console.log(modalName);
   const handleSubmit = () => {
     modalName == "create"
-      ? groupStore.createGroup({ name: groupName })
-      : groupStore.joinGroup(groupName);
+      ? groupStore.createGroup({ name: groupName }, Navigation)
+      : groupStore.joinGroup(groupName, Navigation);
   };
 
   return (

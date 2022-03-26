@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import authStore from "./authStore";
 import { instance } from "./instance";
 
 class GroupStore {
@@ -16,11 +17,13 @@ class GroupStore {
     }
   };
 
-  createGroup = async (groupName) => {
+  createGroup = async (groupName, Navigation) => {
     try {
       console.log("first", groupName);
       const response = await instance.post("/group/new", groupName);
-      this.groups.push(response.data);
+      await authStore.updateUserInfo(response.data);
+      authStore.user.group.push(groupName);
+      // Navigation.replace("Lists");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);
     }
@@ -30,7 +33,7 @@ class GroupStore {
     try {
       console.log("first", groupId);
       const response = await instance.post(`/group/join/${groupId}`);
-      this.groups.push(response.data);
+      await this.fetchGroups();
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);
     }
