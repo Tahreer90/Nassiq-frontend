@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Center, FormControl, Input, Modal, Button } from "native-base";
 import groupStore from "../stores/groupStore";
 import { useNavigation } from "@react-navigation/native";
+import authStore from "../stores/authStore";
 
 const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
   const Navigation = useNavigation();

@@ -30,10 +30,9 @@ const Lists = () => {
   const groups = authStore.user ? authStore.user.group : [];
   const { width, height } = Dimensions.get("window");
 
-  console.log("paaaage : ", page / width + 1);
-
   const groupList = groups
     ? groups.map((group) => {
+        console.log(group);
         return <NQList group={group} key={group._id} />;
       })
     : [];
@@ -44,7 +43,6 @@ const Lists = () => {
     setPage(event.nativeEvent.contentOffset.x);
   };
   groupId = page / width;
-  console.log("AAAAAA", groups[groupId]);
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1 }}>
