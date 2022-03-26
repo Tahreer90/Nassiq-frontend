@@ -19,10 +19,12 @@ class GroupStore {
 
   createGroup = async (groupName, Navigation) => {
     try {
-      console.log("first", groupName);
+      console.log("==================1", authStore.user);
       const response = await instance.post("/group/new", groupName);
-      await authStore.updateUserInfo(response.data);
-      authStore.user.group.push(groupName);
+      await groupStore.fetchGroups();
+      await authStore.updateUserInfo();
+      console.log("==================2", authStore.user);
+      // authStore.user.group.push(groupName);
       // Navigation.replace("Lists");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);

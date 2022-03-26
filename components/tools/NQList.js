@@ -15,15 +15,11 @@ const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");
   const [isSelected, setSelection] = useState(false);
 
-  console.log("===============================+>", groupStore.groups);
   const foundGroup = groupStore.groups.find((group1) => {
-    console.log(group1._id, group);
     return group1._id == group;
   });
   const tasks = foundGroup ? foundGroup.task : [];
 
-  console.log(taskStore.tasks);
-  console.log("???????????", tasks);
   const taskList = tasks.map((task) => {
     return (
       <Layout
