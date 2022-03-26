@@ -23,8 +23,47 @@ import {
 } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import groupStore from "../stores/groupStore";
 
-const GroupMemberList = () => {
+const GroupMemberList = ({ route }) => {
+  //   console.log(groupStore.groups);
+  const members = groupStore.groups
+    .find((groupid) => {
+      return JSON.stringify(groupid._id) == JSON.stringify(route.params.id);
+    })
+    .user.map((user) => {
+      return (
+        <Layout
+          style={{
+            flexDirection: "row",
+            borderBottomWidth: 1,
+            borderBottomColor: "black",
+            margin: 15,
+            paddingBottom: 15,
+          }}
+        >
+          <Avatar style={{}} size="giant" source={{ uri: user.image }} />
+          <Text
+            style={{
+              top: 20,
+
+              fontWeight: "bold",
+            }}
+          >
+            {user.username}
+          </Text>
+          <Button
+            style={{ position: "absolute", right: 5, top: 9 }}
+            appearance="ghost"
+            status="primary"
+          >
+            Remove
+          </Button>
+        </Layout>
+      );
+    });
+  console.log("1+++++++++++", members);
+  console.log(route.params.id);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -44,108 +83,7 @@ const GroupMemberList = () => {
             </Layout>
           </Layout>
           <Layout style={{ flex: 9 }}>
-            <ScrollView>
-              <Layout
-                style={{
-                  flexDirection: "row",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "black",
-                  margin: 15,
-                  paddingBottom: 15,
-                }}
-              >
-                <Avatar
-                  style={{}}
-                  size="giant"
-                  source={require("../assets/icon.png")}
-                />
-                <Text style={{ top: 18, left: 10, fontWeight: "bold" }}>
-                  Full Name
-                </Text>
-                <Button
-                  style={{ position: "absolute", right: 5, top: 9 }}
-                  appearance="ghost"
-                  status="primary"
-                >
-                  Remove
-                </Button>
-              </Layout>
-              <Layout
-                style={{
-                  flexDirection: "row",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "black",
-                  margin: 15,
-                  paddingBottom: 15,
-                }}
-              >
-                <Avatar
-                  style={{}}
-                  size="giant"
-                  source={require("../assets/icon.png")}
-                />
-                <Text style={{ top: 18, left: 10, fontWeight: "bold" }}>
-                  Full Name
-                </Text>
-                <Button
-                  style={{ position: "absolute", right: 5, top: 9 }}
-                  appearance="ghost"
-                  status="primary"
-                >
-                  Remove
-                </Button>
-              </Layout>
-              <Layout
-                style={{
-                  flexDirection: "row",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "black",
-                  margin: 15,
-                  paddingBottom: 15,
-                }}
-              >
-                <Avatar
-                  style={{}}
-                  size="giant"
-                  source={require("../assets/icon.png")}
-                />
-                <Text style={{ top: 18, left: 10, fontWeight: "bold" }}>
-                  Full Name
-                </Text>
-                <Button
-                  style={{ position: "absolute", right: 5, top: 9 }}
-                  appearance="ghost"
-                  status="primary"
-                >
-                  Remove
-                </Button>
-              </Layout>
-              <Layout
-                style={{
-                  flexDirection: "row",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "black",
-                  margin: 15,
-                  paddingBottom: 15,
-                }}
-              >
-                <Avatar
-                  style={{}}
-                  size="giant"
-                  source={require("../assets/icon.png")}
-                />
-                <Text style={{ top: 18, left: 10, fontWeight: "bold" }}>
-                  Full Name
-                </Text>
-                <Button
-                  style={{ position: "absolute", right: 5, top: 9 }}
-                  appearance="ghost"
-                  status="primary"
-                >
-                  Remove
-                </Button>
-              </Layout>
-            </ScrollView>
+            <ScrollView>{members}</ScrollView>
           </Layout>
         </Layout>
       </TouchableWithoutFeedback>
