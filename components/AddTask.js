@@ -31,6 +31,8 @@ import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
 import { HStack, VStack } from "native-base";
 import groupStore from "../stores/groupStore";
+import SwipeOut from "./SwipeOut";
+import RemoveTask from "./RemoveTask";
 
 const AddTask = ({ route }) => {
   const { groupId } = route.params;
@@ -45,28 +47,23 @@ const AddTask = ({ route }) => {
     setList([...list, { name: inputSaver }]);
     setInputSaver("");
   };
+
+  const dfunction = (taskIndex) => {
+    setList(list.filter((item, index) => index !== taskIndex));
+  };
   // console.log("MOONNNNNN", list);
 
-  const taskList = list.map((task) => (
+  const taskList = list.map((task, index) => (
     <Layout
       style={{
-        flexDirection: "row",
-        borderColor: "black",
-        borderWidth: 1,
-        marginRight: 160,
-        borderRadius: 13,
-        padding: 5,
+        right: 10,
         marginBottom: 5,
-        alignContent: "center",
-        alignItems: "center",
       }}
     >
-      <Text category="h6">{task.name}</Text>
-      <FontAwesome
-        name="trash-o"
-        size={22}
-        color="black"
-        style={{ position: "absolute", right: 10 }}
+      <RemoveTask
+        taskname={task.name}
+        dfunction={dfunction}
+        taskIndex={index}
       />
     </Layout>
   ));
@@ -132,8 +129,6 @@ const AddTask = ({ route }) => {
                   returnKeyType="default"
                   returnKeyLabel="ADD"
                   onEndEditing={(r) => handlePress(r)}
-
-                  //   onSubmitEditing={}
                 ></TextInput>
 
                 <Button style={{ width: "30%", borderRadius: 15 }}>
@@ -149,25 +144,6 @@ const AddTask = ({ route }) => {
                 }}
               >
                 {taskList}
-                {/* <Text
-                    category="h6"
-                    style={{
-                      borderColor: "black",
-                      borderWidth: 1,
-                      marginRight: 170,
-                      borderRadius: 13,
-                      padding: 5,
-                      marginBottom: 5,
-                    }}
-                  >
-                    Fahad
-                  </Text>
-                  <FontAwesome
-                    name="trash-o"
-                    size={22}
-                    color="black"
-                    style={{ top: 9 }}
-                  /> */}
               </Layout>
             </Layout>
           </ScrollView>
@@ -180,7 +156,7 @@ const AddTask = ({ route }) => {
             flexDirection: "column",
           }}
         >
-          <Button onclick={handleAdd} style={styles.btn}>
+          <Button onPress={handleAdd} style={styles.btn}>
             Save
           </Button>
           <Button

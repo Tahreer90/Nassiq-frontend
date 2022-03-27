@@ -76,6 +76,16 @@ class TaskStore {
     );
     foundTask.edit = true;
   };
+
+  deleteTask = async (taskId, groupId) => {
+    try {
+      await instance.delete(`/delete/${groupId}/${taskId}`);
+      await groupStore.fetchGroups();
+      await this.fetchTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const taskStore = new TaskStore();

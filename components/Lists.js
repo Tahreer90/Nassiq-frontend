@@ -22,6 +22,8 @@ import taskStore from "../stores/taskStore";
 import { observer } from "mobx-react-lite";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
+import SwipeOut from "./SwipeOut";
+
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const Navigation = useNavigation();
@@ -36,8 +38,6 @@ const Lists = () => {
         return <NQList group={group} key={group._id} />;
       })
     : [];
-
-  const handleAdd = () => {};
 
   const handleScroll = (event) => {
     setPage(event.nativeEvent.contentOffset.x);

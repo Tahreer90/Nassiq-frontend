@@ -72,6 +72,7 @@ const Signin = ({ navigation }) => {
 
           <NQInput value={value} setValue={setValue} />
           <NQPassword
+            status={true}
             value1={value1}
             setValue1={setValue1}
             placeholder="password"

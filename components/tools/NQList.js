@@ -14,6 +14,7 @@ import { Layout, CheckBox, Input } from "@ui-kitten/components";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import SwipeOut from "../SwipeOut";
 
 const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");

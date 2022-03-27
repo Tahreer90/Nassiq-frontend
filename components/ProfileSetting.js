@@ -30,6 +30,9 @@ const ProfilePage = () => {
   const [value, setValue] = React.useState(username.username);
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
+
+  const confirmation = value2 == value3;
+
   const updateInfo = { newusername: value, newpassword: value2 };
   const handleSave = async () => {
     await authStore.updateUserInfo(updateInfo);
@@ -88,6 +91,7 @@ const ProfilePage = () => {
                 New Password
               </Text>
               <NQPassword
+                status={true}
                 category="h6"
                 value1={value2}
                 setValue1={setValue2}
@@ -102,7 +106,7 @@ const ProfilePage = () => {
                 Confirm Password
               </Text>
               <NQPassword
-                style={{}}
+                status={confirmation}
                 category="h6"
                 value1={value3}
                 setValue1={setValue3}
@@ -110,6 +114,11 @@ const ProfilePage = () => {
               >
                 confirm password
               </NQPassword>
+              {confirmation ? (
+                <Text></Text>
+              ) : (
+                <Text style={styles.txt}>password doesn't match</Text>
+              )}
             </Layout>
             <Layout style={{ flex: 1, alignItems: "center" }}>
               <Button onPress={handleSave} style={styles.btn}>
@@ -150,5 +159,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: "500",
+  },
+  txt: {
+    color: "red",
+    padding: 5,
+    left: 2,
+    bottom: 10,
   },
 });
