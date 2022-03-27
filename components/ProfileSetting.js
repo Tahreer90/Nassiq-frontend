@@ -89,7 +89,6 @@ const ProfilePage = () => {
                 New Password
               </Text>
               <NQPassword
-                style={{}}
                 category="h6"
                 value1={value2}
                 setValue1={setValue2}

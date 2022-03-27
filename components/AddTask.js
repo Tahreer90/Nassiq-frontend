@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Keyboard,
   TextInput,
+  Image,
 } from "react-native";
 import {
   Button,
@@ -80,36 +81,32 @@ const AddTask = ({ route }) => {
       <Layout style={{ flex: 1, justifyContent: "center" }}>
         <Layout style={{ flex: 1 }}>
           <Layout style={{ left: 70, top: 25 }}>
-            <Layout style={{ left: 21, top: 18 }}>
+            <Layout style={{ left: 30, top: 18 }}>
               <Text>Hello</Text>
             </Layout>
             <Layout
               style={{
                 flexDirection: "row",
                 marginTop: 20,
-                marginLeft: 20,
+                marginLeft: 30,
               }}
             >
               <Text category="h3">{username.username}</Text>
-              <MaterialCommunityIcons
-                name="map-marker-check"
-                size={31}
-                color="red"
-                style={{ right: 30, position: "absolute", marginTop: 5 }}
-              />
             </Layout>
           </Layout>
-          <Avatar
-            style={{ bottom: 30, left: 20 }}
-            size="giant"
+          <Image
+            style={{
+              bottom: 40,
+              left: 10,
+              height: 80,
+              width: 80,
+              borderRadius: 50,
+            }}
             source={{ uri: baseUrl + "/" + username.image }}
           />
         </Layout>
         <Layout style={{ flex: 3, marginLeft: 25 }}>
-          <Text
-            style={{ marginTop: 20, marginBottom: 15, marginLeft: 3 }}
-            category="h6"
-          >
+          <Text style={{ marginBottom: 15, marginLeft: 3 }} category="h6">
             ADD TASK
           </Text>
           <ScrollView
@@ -121,7 +118,7 @@ const AddTask = ({ route }) => {
                 <TextInput
                   style={{
                     width: "65%",
-                    marginRight: 10,
+                    marginRight: 5,
                     borderColor: "black",
                     borderWidth: 1,
                     borderRadius: 15,
@@ -179,12 +176,19 @@ const AddTask = ({ route }) => {
             alignItems: "center",
             left: 5,
             flexDirection: "column",
-            justifyContent: "start",
           }}
         >
-          <NQButton txt="Save" onclick={handleAdd} />
-
-          <Text onPress={() => Navigation.goBack()}>Cancel</Text>
+          <Button onclick={handleAdd} style={styles.btn}>
+            Save
+          </Button>
+          <Button
+            appearance="ghost"
+            status="primary"
+            style={{ padding: 10 }}
+            onPress={() => Navigation.goBack()}
+          >
+            Cancel
+          </Button>
         </Layout>
       </Layout>
       {/* </TouchableWithoutFeedback> */}
@@ -194,4 +198,12 @@ const AddTask = ({ route }) => {
 
 export default AddTask;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: {
+    width: 334,
+    height: 45,
+    borderRadius: 100,
+    fontSize: 18,
+    fontWeight: "700",
+  },
+});
