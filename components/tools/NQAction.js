@@ -33,7 +33,7 @@ function NQAction({ isOpen, onClose, groupId }) {
           modalName="create"
           onClose={onClose}
         />
-        <Actionsheet.Item onPress={() => setShowModal(true)}>
+        <Actionsheet.Item onPress={() => setShowModal1(true)}>
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
             <MaterialIcons name="group-add" size={24} color="#FD6B68" />
             <Text style={{ marginLeft: 7 }}>Join a Group</Text>

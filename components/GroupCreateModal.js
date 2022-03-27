@@ -7,8 +7,8 @@ import authStore from "../stores/authStore";
 
 const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
   const Navigation = useNavigation();
-
   const [groupName, setGroupName] = useState("");
+  const [groupId, setGroupId] = useState("");
 
   if (showModal) {
     console.log(modalName);
@@ -16,9 +16,10 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
   const handleSubmit = () => {
     modalName == "create"
       ? groupStore.createGroup({ name: groupName }, Navigation)
-      : groupStore.joinGroup(groupName, Navigation);
+      : groupStore.joinGroup(groupId, Navigation);
 
     setGroupName("");
+    setGroupId("");
   };
 
   return (
@@ -31,10 +32,17 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
               <FormControl.Label padding={3}>
                 {modalName == "create" ? "Group Name:" : "Group ID:"}
               </FormControl.Label>
-              <Input
-                value={groupName}
-                onChangeText={(value) => setGroupName(value)}
-              />
+              {modalName == "create" ? (
+                <Input
+                  value={groupName}
+                  onChangeText={(value) => setGroupName(value)}
+                />
+              ) : (
+                <Input
+                  value={groupId}
+                  onChangeText={(value) => setGroupId(value)}
+                />
+              )}
             </FormControl>
           </Modal.Body>
           <Modal.Footer>
