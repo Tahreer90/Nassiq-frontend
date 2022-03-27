@@ -13,9 +13,10 @@ import NQButton from "../tools/NQButton";
 import NQInput from "../tools/NQInput";
 import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
+import { observer } from "mobx-react";
 
 const Signin = ({ navigation }) => {
-  console.log(authStore.user);
+  console.log("object======>", authStore.user);
   if (authStore.user) {
     navigation.replace("Lists");
   }
@@ -99,6 +100,6 @@ const Signin = ({ navigation }) => {
   );
 };
 
-export default Signin;
+export default observer(Signin);
 
 const styles = StyleSheet.create({});
