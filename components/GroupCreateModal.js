@@ -5,7 +5,7 @@ import groupStore from "../stores/groupStore";
 import { useNavigation } from "@react-navigation/native";
 import authStore from "../stores/authStore";
 
-const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
+const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
   const Navigation = useNavigation();
 
   const [groupName, setGroupName] = useState("");
@@ -14,6 +14,8 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
     modalName == "create"
       ? groupStore.createGroup({ name: groupName }, Navigation)
       : groupStore.joinGroup(groupName, Navigation);
+
+    setGroupName("");
   };
 
   return (
@@ -26,7 +28,10 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
               <FormControl.Label padding={3}>
                 {modalName == "create" ? "Group Name:" : "Group ID:"}
               </FormControl.Label>
-              <Input onChangeText={(value) => setGroupName(value)} />
+              <Input
+                value={groupName}
+                onChangeText={(value) => setGroupName(value)}
+              />
             </FormControl>
           </Modal.Body>
           <Modal.Footer>
@@ -45,6 +50,7 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName }) => {
                 onPress={() => {
                   handleSubmit();
                   setShowModal(false);
+                  onClose();
                 }}
               >
                 Save

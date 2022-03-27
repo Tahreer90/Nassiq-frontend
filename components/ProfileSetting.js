@@ -31,12 +31,11 @@ const ProfilePage = () => {
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
   const updateInfo = { newusername: value, newpassword: value2 };
-  const handleSave = () => {
+  const handleSave = async () => {
+    await authStore.updateUserInfo(updateInfo);
     Navigation.goBack();
     Navigation.goBack();
     Navigation.goBack();
-
-    authStore.updateUserInfo(updateInfo);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>

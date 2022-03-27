@@ -29,6 +29,7 @@ import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
 import { HStack, VStack } from "native-base";
+import groupStore from "../stores/groupStore";
 
 const AddTask = ({ route }) => {
   const { groupId } = route.params;
@@ -68,10 +69,11 @@ const AddTask = ({ route }) => {
       />
     </Layout>
   ));
-  const handleAdd = () => {
+  const handleAdd = async () => {
     list.forEach(
       async (item) => await taskStore.addTask(item, groupId, Navigation)
     );
+
     Navigation.replace("Lists");
   };
   return (

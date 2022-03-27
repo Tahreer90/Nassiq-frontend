@@ -67,7 +67,7 @@ class AuthStore {
       const response = await instance.put("/auth/update", updateInfo);
       const { token } = response.data;
       console.log(token);
-      this.signout();
+      // this.signout();
       this.setUser(token);
     } catch (error) {}
   };
