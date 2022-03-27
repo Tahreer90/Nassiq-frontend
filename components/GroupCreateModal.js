@@ -9,7 +9,10 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
   const Navigation = useNavigation();
 
   const [groupName, setGroupName] = useState("");
-  console.log(modalName);
+
+  if (showModal) {
+    console.log(modalName);
+  }
   const handleSubmit = () => {
     modalName == "create"
       ? groupStore.createGroup({ name: groupName }, Navigation)

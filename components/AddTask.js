@@ -180,7 +180,7 @@ const AddTask = ({ route }) => {
             flexDirection: "column",
           }}
         >
-          <Button onclick={handleAdd} style={styles.btn}>
+          <Button onPress={handleAdd} style={styles.btn}>
             Save
           </Button>
           <Button
