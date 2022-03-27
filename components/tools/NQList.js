@@ -4,50 +4,107 @@ import {
   View,
   ScrollView,
   Dimensions,
-  CheckBox,
+  TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import taskStore from "../../stores/taskStore";
 import groupStore from "../../stores/groupStore";
 import { observer } from "mobx-react";
-import { Layout } from "@ui-kitten/components";
+import { Layout, CheckBox, Input } from "@ui-kitten/components";
+import { FontAwesome } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+
 const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");
-  const [isSelected, setSelection] = useState(false);
 
   const foundGroup = groupStore.groups.find((group1) => {
     return group1._id == group;
   });
   const tasks = foundGroup ? foundGroup.task : [];
-
+  const [taskName, setTaskName] = useState("task.name");
   const taskList = tasks.map((task) => {
     return (
-      <Layout
-        style={{
-          flexDirection: "row",
-          marginBottom: 15,
-        }}
-      >
-        {/* <CheckBox
-            value={isSelected}
-            onValueChange={setSelection}
-            style={styles.checkbox}
-          /> */}
-        <Text
-          key={task._id}
-          style={{
-            fontSize: 16,
-            fontWeight: "500",
-            width: 190,
-            backgroundColor: "#242D65",
-            color: "#FFFFFF",
-            marginBottom: 1,
-            height: 30,
-          }}
-        >
-          {task.name}
-        </Text>
-      </Layout>
+      <>
+        {task.edit ? (
+          <Layout
+            style={{
+              flexDirection: "row",
+              marginBottom: 15,
+              justifyContent: "space-between",
+              width: 250,
+              backgroundColor: "#242D65",
+              alignItems: "center",
+            }}
+          >
+            <TextInput
+              value={taskName}
+              color="white"
+              style={{
+                marginLeft: "10%",
+                width: "60%",
+                maxWidth: "60%",
+              }}
+              onChangeText={(value) => setTaskName(value)}
+            ></TextInput>
+            <Feather
+              name="check-square"
+              size={24}
+              color="white"
+              onPress={() =>
+                taskStore.updateTask(foundGroup._id, task._id, task, taskName)
+              }
+            />
+            <MaterialIcons
+              name="cancel-presentation"
+              size={24}
+              color="white"
+              onPress={() => {}}
+            />
+          </Layout>
+        ) : (
+          <Layout
+            style={{
+              flexDirection: "row",
+              marginBottom: 15,
+              justifyContent: "space-between",
+              width: 250,
+              backgroundColor: "#242D65",
+              alignItems: "center",
+            }}
+          >
+            <CheckBox
+              checked={task.isChecked}
+              onChange={(nextChecked) =>
+                taskStore.checkTask(task._id, nextChecked, foundGroup._id)
+              }
+            ></CheckBox>
+            <Text
+              key={task._id}
+              style={{
+                fontSize: 16,
+                fontWeight: "500",
+                width: 190,
+                backgroundColor: "#242D65",
+                color: "#FFFFFF",
+                marginBottom: 1,
+                height: 30,
+              }}
+            >
+              {task.name}
+            </Text>
+            <FontAwesome
+              name="pencil-square-o"
+              size={24}
+              color="white"
+              onPress={() => {
+                setTaskName(task.name);
+                taskStore.editTask(task._id, foundGroup._id);
+              }}
+            />
+          </Layout>
+        )}
+      </>
     );
   });
   return (

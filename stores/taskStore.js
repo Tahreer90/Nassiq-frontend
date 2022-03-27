@@ -29,14 +29,52 @@ class TaskStore {
 
   addTask = async (list, groupId, Navigation) => {
     try {
+      list.isChecked = false;
       const response = await instance.post(`/task/new/${groupId}`, list);
-
       this.tasks.push(response.data);
       await groupStore.fetchGroups();
-      // Navigation.replace("Lists");
     } catch (error) {
       console.log(error);
     }
+  };
+
+  checkTask = async (taskId, nextChecked, groupId) => {
+    try {
+      const foundGroup = groupStore.groups.find(
+        (group) => group._id == groupId
+      );
+      const foundTask = foundGroup.task.find(
+        (task) => JSON.stringify(task._id) == JSON.stringify(taskId)
+      );
+      foundTask.isChecked = nextChecked;
+      await this.updateTask(groupId, taskId, foundTask);
+    } catch (error) {}
+  };
+
+  updateTask = async (groupId, taskId, newTask, taskName) => {
+    try {
+      if (taskName) {
+        newTask.name = taskName;
+        newTask.edit = false;
+      }
+      const response = await instance.put(
+        `/task/update/${groupId}/${taskId}`,
+        newTask
+      );
+
+      await groupStore.fetchGroups();
+      await this.fetchTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  editTask = async (taskId, groupId) => {
+    const foundGroup = groupStore.groups.find((group) => group._id == groupId);
+    const foundTask = foundGroup.task.find(
+      (task) => JSON.stringify(task._id) == JSON.stringify(taskId)
+    );
+    foundTask.edit = true;
   };
 }
 

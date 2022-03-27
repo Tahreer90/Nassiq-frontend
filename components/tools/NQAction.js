@@ -31,6 +31,7 @@ function NQAction({ isOpen, onClose, groupId }) {
           showModal={showModal}
           setShowModal={setShowModal}
           modalName="create"
+          onClose={onClose}
         />
         <Actionsheet.Item onPress={() => setShowModal(true)}>
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
@@ -41,6 +42,7 @@ function NQAction({ isOpen, onClose, groupId }) {
             showModal={showModal1}
             setShowModal={setShowModal1}
             modalName="join"
+            onClose={onClose}
           />
         </Actionsheet.Item>
         <Actionsheet.Item onPress={onClose}>Cancel</Actionsheet.Item>
