@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
   Keyboard,
+  Clipboard,
 } from "react-native";
 import {
   Button,
@@ -21,15 +22,25 @@ import {
   Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
+// import Clipboard from "@react-native-community/clipboard";
+import Toast from "react-native-toast-message";
 import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import groupStore from "../stores/groupStore";
 
 const GroupMemberList = ({ route }) => {
   //   console.log(groupStore.groups);
+  const { groupId } = route.params;
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Hello",
+      text2: "This is some something 👋",
+    });
+  };
   const members = groupStore.groups
-    .find((groupid) => {
-      return JSON.stringify(groupid._id) == JSON.stringify(route.params.id);
+    .find((group) => {
+      return JSON.stringify(group._id) == JSON.stringify(groupId);
     })
     .user.map((user) => {
       return (
@@ -70,7 +81,7 @@ const GroupMemberList = ({ route }) => {
         <Layout style={{ flex: 1 }}>
           <Layout style={{ flex: 1, alignItems: "center" }}>
             <Layout style={{ flexDirection: "row" }}>
-              <FontAwesome5 name="users" size={35} color="red" />
+              <FontAwesome5 name="users" size={35} color="#FD6B68" />
               <Text
                 style={{
                   top: 10,
@@ -81,6 +92,15 @@ const GroupMemberList = ({ route }) => {
                 Members
               </Text>
             </Layout>
+            <Text
+              style={{ fontWeight: "500" }}
+              onPress={() => {
+                showToast();
+                Clipboard.setString(groupId);
+              }}
+            >
+              Invite+
+            </Text>
           </Layout>
           <Layout style={{ flex: 9 }}>
             <ScrollView>{members}</ScrollView>
