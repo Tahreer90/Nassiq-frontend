@@ -45,6 +45,8 @@ const NQList = ({ group }) => {
                 marginLeft: "10%",
                 width: "60%",
                 maxWidth: "60%",
+                borderBottomWidth: 1,
+                borderColor: "white",
               }}
               onChangeText={(value) => setTaskName(value)}
             ></TextInput>
@@ -90,6 +92,7 @@ const NQList = ({ group }) => {
                 color: "#FFFFFF",
                 marginBottom: 1,
                 height: 30,
+                top: 6,
               }}
             >
               {task.name}

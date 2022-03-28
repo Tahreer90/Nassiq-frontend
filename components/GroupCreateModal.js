@@ -14,7 +14,6 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
     modalName == "create"
       ? groupStore.createGroup({ name: groupName }, Navigation)
       : groupStore.joinGroup(groupName, Navigation);
-
     setGroupName("");
   };
 
@@ -48,6 +47,7 @@ const GroupCreateModal = ({ showModal, setShowModal, modalName, onClose }) => {
               <Button
                 style={{ backgroundColor: "#FD6B68" }}
                 onPress={() => {
+                  alert("Group Created Successfully");
                   handleSubmit();
                   setShowModal(false);
                   onClose();
