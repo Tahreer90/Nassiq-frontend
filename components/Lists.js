@@ -19,7 +19,7 @@ import { NativeBaseProvider } from "native-base";
 import NQProfile from "./tools/NQProfile";
 import groupStore from "../stores/groupStore";
 import taskStore from "../stores/taskStore";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
 const Lists = () => {
@@ -32,7 +32,7 @@ const Lists = () => {
 
   const groupList = groups
     ? groups.map((group) => {
-        console.log(group);
+        // console.log(group);
         return <NQList group={group} key={group._id} />;
       })
     : [];

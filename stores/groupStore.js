@@ -12,6 +12,7 @@ class GroupStore {
     try {
       const groupResponse = await instance.get("/group");
       this.groups = groupResponse.data;
+      console.log(this.groups.length);
     } catch (error) {
       console.log("error message", error);
     }
