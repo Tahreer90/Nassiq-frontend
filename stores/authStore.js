@@ -51,7 +51,7 @@ class AuthStore {
     try {
       const decodedToken = decode(token);
       const res = await instance.get(`/auth/${decodedToken._id}`);
-
+      await groupStore.fetchGroups();
       this.user = res.data;
       console.log("-------======+++++++++=====", this.user);
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
