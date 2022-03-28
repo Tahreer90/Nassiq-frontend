@@ -14,8 +14,8 @@ class AuthStore {
     try {
       const response = await instance.post("/auth/signup", userData);
       const { token } = response.data;
-      this.setUser(token);
       await groupStore.fetchGroups();
+      this.setUser(token);
 
       // await profileStore.getProfiles();
       navigation.replace("Lists");
