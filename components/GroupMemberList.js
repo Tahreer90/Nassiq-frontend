@@ -33,9 +33,11 @@ const GroupMemberList = ({ route }) => {
   const { groupId } = route.params;
   const showToast = () => {
     Toast.show({
-      type: "success",
-      text1: "Hello",
-      text2: "This is some something 👋",
+      type: "info",
+      text2: "copied to clipboard",
+      position: "bottom",
+      bottomOffset: 400,
+      visibilityTime: 1000,
     });
   };
   const members = groupStore.groups
@@ -79,8 +81,20 @@ const GroupMemberList = ({ route }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Layout style={{ flex: 1 }}>
-          <Layout style={{ flex: 1, alignItems: "center" }}>
-            <Layout style={{ flexDirection: "row" }}>
+          <Layout
+            style={{
+              flex: 1,
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Layout
+              style={{
+                flexDirection: "row",
+                flex: 6,
+                justifyContent: "center",
+              }}
+            >
               <FontAwesome5 name="users" size={35} color="#FD6B68" />
               <Text
                 style={{
@@ -91,16 +105,23 @@ const GroupMemberList = ({ route }) => {
               >
                 Members
               </Text>
+              <Text
+                style={{
+                  fontWeight: "600",
+                  color: "blue",
+                  textDecorationLine: "underline",
+                  position: "absolute",
+                  right: 20,
+                  top: 10,
+                }}
+                onPress={() => {
+                  showToast();
+                  Clipboard.setString(groupId);
+                }}
+              >
+                Invite+
+              </Text>
             </Layout>
-            <Text
-              style={{ fontWeight: "500" }}
-              onPress={() => {
-                showToast();
-                Clipboard.setString(groupId);
-              }}
-            >
-              Invite+
-            </Text>
           </Layout>
           <Layout style={{ flex: 9 }}>
             <ScrollView>{members}</ScrollView>

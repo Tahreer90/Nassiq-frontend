@@ -7,6 +7,7 @@ import { Navigation } from "./components/navigation/Navigation";
 import { ThemeContext } from "./components/navigation/theme-context";
 import myTheme from "./theme.json";
 import { SSRProvider } from "@react-aria/ssr";
+import Toast from "react-native-toast-message";
 
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
@@ -24,6 +25,7 @@ export default () => {
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <ApplicationProvider {...eva} theme={{ ...eva[theme], ...myTheme }}>
           <Navigation />
+          <Toast />
         </ApplicationProvider>
       </ThemeContext.Provider>
     </SSRProvider>

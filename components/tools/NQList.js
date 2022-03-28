@@ -28,14 +28,7 @@ const NQList = ({ group }) => {
   console.log(foundGroup);
   const tasks = foundGroup ? foundGroup.task : [];
   const [taskName, setTaskName] = useState("task.name");
-  //   const handleEdit = (task) => {
-  // tasks.forEach(task1 => {
-  //   if (task1._id == task._id)
-  //   task1.edit = false;
-  //   task.edit = true;
 
-  // });
-  //   }
   const taskList = tasks.map((task) => {
     return (
       <>
@@ -57,6 +50,8 @@ const NQList = ({ group }) => {
                 marginLeft: "10%",
                 width: "60%",
                 maxWidth: "60%",
+                borderBottomWidth: 1,
+                borderBottomColor: "white",
               }}
               onChangeText={(value) => setTaskName(value)}
             ></TextInput>
@@ -94,20 +89,42 @@ const NQList = ({ group }) => {
                 taskStore.checkTask(task._id, nextChecked, foundGroup._id)
               }
             ></CheckBox>
-            <Text
-              key={task._id}
-              style={{
-                fontSize: 16,
-                fontWeight: "500",
-                width: 190,
-                backgroundColor: "#242D65",
-                color: "#FFFFFF",
-                marginBottom: 1,
-                height: 30,
-              }}
-            >
-              {task.name}
-            </Text>
+            {task.isChecked ? (
+              <Text
+                key={task._id}
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  width: 190,
+                  backgroundColor: "#242D65",
+                  color: "#C5C5C5",
+                  opacity: 1,
+                  marginBottom: 1,
+                  height: 30,
+                  top: 5,
+                  textDecorationLine: "line-through",
+                }}
+              >
+                {task.name}
+              </Text>
+            ) : (
+              <Text
+                key={task._id}
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  width: 190,
+                  backgroundColor: "#242D65",
+                  color: "#FFFFFF",
+                  marginBottom: 1,
+                  height: 30,
+                  top: 5,
+                }}
+              >
+                {task.name}
+              </Text>
+            )}
+
             <FontAwesome
               name="pencil-square-o"
               size={24}
@@ -166,7 +183,7 @@ export default observer(NQList);
 
 const styles = StyleSheet.create({
   list: {
-    width: 270,
+    width: 300,
     height: 450,
     marginTop: 25,
     backgroundColor: "#242D65",
