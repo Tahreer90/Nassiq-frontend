@@ -63,7 +63,7 @@ const Lists = () => {
   };
   groupId = page / width;
 
-  console.log(groupId);
+  // console.log(groupId);
 
   const scrollRef = useRef();
 
