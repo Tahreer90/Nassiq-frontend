@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
-import { instance } from "./instance";
+import { instance, socket } from "./instance";
 
 class GroupStore {
   groups = [];
@@ -37,6 +37,8 @@ class GroupStore {
       console.log("first", groupId);
       const response = await instance.post(`/group/join/${groupId}`);
       await this.fetchGroups();
+      // await authStore.updateUserInfo();
+      socket.emit("frontend", "Join");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);
     }

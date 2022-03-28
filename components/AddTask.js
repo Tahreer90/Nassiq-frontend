@@ -16,17 +16,10 @@ import {
   Avatar,
 } from "@ui-kitten/components";
 import React, { useState } from "react";
-import NQInput from "./tools/NQInput";
-import NQButton from "./tools/NQButton";
-import {
-  MaterialCommunityIcons,
-  Entypo,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { Menu } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
-import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
 import { HStack, VStack } from "native-base";
@@ -206,7 +199,21 @@ const AddTask = ({ route }) => {
                   </Button>
                 )}
               </Layout>
-
+              <DropdownMenu
+                style={{ flex: 1 }}
+                bgColor={"white"}
+                tintColor={"#666666"}
+                activityTintColor={"green"}
+                // arrowImg={}
+                // checkImage={}
+                // optionTextStyle={{color: '#333333'}}
+                // titleStyle={{color: '#333333'}}
+                // maxHeight={300}
+                handler={(selection, row) =>
+                  this.setState({ text: data[selection][row] })
+                }
+                data={data}
+              />
               <Layout
                 style={{
                   flex: 1,

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import groupStore from "./groupStore";
-import { instance } from "./instance";
+import { instance, socket } from "./instance";
 
 class TaskStore {
   tasks = [];
@@ -33,6 +33,7 @@ class TaskStore {
       const response = await instance.post(`/task/new/${groupId}`, list);
       this.tasks.push(response.data);
       await groupStore.fetchGroups();
+      socket.emit("frontend", "Add");
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +48,7 @@ class TaskStore {
         (task) => JSON.stringify(task._id) == JSON.stringify(taskId)
       );
       foundTask.isChecked = nextChecked;
+      socket.emit("frontend", "Check");
       await this.updateTask(groupId, taskId, foundTask);
     } catch (error) {}
   };
