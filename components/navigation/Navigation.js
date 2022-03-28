@@ -11,12 +11,14 @@ import AddTask from "../AddTask";
 import GroupMemberList from "../GroupMemberList";
 import Signup from "../auth/Signup";
 import Lists from "../Lists";
+import SwipeOut from "../SwipeOut";
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
+  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signup">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
+    <Screen name="SwipeOut" component={SwipeOut} />
 
     <Screen name="HomeMain" component={HomeMain} />
     <Screen name="ProfilePage" component={ProfilePage} />

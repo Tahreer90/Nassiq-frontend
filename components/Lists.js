@@ -7,7 +7,7 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import NQAdd from "./tools/NQAdd";
 import NQMenu from "./tools/NQMenu";
 import MapIcon from "./tools/MapIcon";
@@ -51,8 +51,6 @@ const Lists = () => {
       })
     : [];
 
-  const handleAdd = () => {};
-
   const userGroups = groups
     ? groups.map((group) => {
         // console.log(group);
@@ -66,6 +64,9 @@ const Lists = () => {
   groupId = page / width;
 
   console.log(groupId);
+
+  const scrollRef = useRef();
+
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1 }}>
@@ -104,6 +105,7 @@ const Lists = () => {
             pagingEnabled={true}
             style={{ flex: 1 }}
             onScroll={(event) => handleScroll(event)}
+            ref={scrollRef}
           >
             {groupList}
           </ScrollView>
@@ -114,6 +116,9 @@ const Lists = () => {
             isOpen={isOpen}
             onClose={onClose}
             groupId={groups[groupId]}
+            pagevalue={width * groupId}
+            scrollRef={scrollRef}
+            xvalue={width * groups.length + 1}
           />
         </Layout>
       </SafeAreaView>

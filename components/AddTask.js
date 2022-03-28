@@ -22,12 +22,16 @@ import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
+import { HStack, VStack } from "native-base";
+import groupStore from "../stores/groupStore";
+import SwipeOut from "./SwipeOut";
+import RemoveTask from "./RemoveTask";
 
 const AddTask = ({ route }) => {
   const { groupId } = route.params;
-  const [visible, setVisible] = React.useState(false);
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
+  const { onClose } = route.params;
+  const { scrollRef } = route.params;
+  const { pagevalue } = route.params;
   const Navigation = useNavigation();
   const username = authStore.user;
   const [status, setStatus] = useState("normal");
@@ -41,53 +45,79 @@ const AddTask = ({ route }) => {
     setList([...list, { name: inputSaver, type: status }]);
     setInputSaver("");
   };
-  console.log("MOONNNNNN", list);
 
-  const taskList = list.map((task) => (
-    <>
-      {task.type == "urgent" ? (
-        <Layout
-          style={{
-            flexDirection: "row",
-            borderColor: "green",
-            borderWidth: 1,
-            marginRight: 160,
-            borderRadius: 13,
-            padding: 5,
-            marginBottom: 5,
-            alignContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "green" }} category="h6">
-            {task.name}
-          </Text>
-        </Layout>
-      ) : (
-        <Layout
-          style={{
-            flexDirection: "row",
-            borderColor: "black",
-            borderWidth: 1,
-            marginRight: 160,
-            borderRadius: 13,
-            padding: 5,
-            marginBottom: 5,
-            alignContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text category="h6">{task.name}</Text>
-        </Layout>
-      )}
-    </>
+  const dfunction = (taskIndex) => {
+    setList(list.filter((item, index) => index !== taskIndex));
+  };
+  // console.log("MOONNNNNN", list);
+
+  const taskList = list.map((task, index) => (
+    <Layout
+      style={{
+        right: 10,
+        marginBottom: 5,
+      }}
+    >
+      <RemoveTask
+        taskname={task.name}
+        dfunction={dfunction}
+        taskIndex={index}
+      />
+    </Layout>
+    // console.log("MOONNNNNN", list);
+
+    // const taskList = list.map((task) => (
+    // <>
+    //   {task.type == "urgent" ? (
+    //     <Layout
+    //       style={{
+    //         flexDirection: "row",
+    //         borderColor: "green",
+    //         borderWidth: 1,
+    //         marginRight: 160,
+    //         borderRadius: 13,
+    //         padding: 5,
+    //         marginBottom: 5,
+    //         alignContent: "center",
+    //         alignItems: "center",
+    //       }}
+    //     >
+    //       <Text style={{ color: "green" }} category="h6">
+    //         {task.name}
+    //       </Text>
+
+    //     </Layout>
+    //   ) : (
+    //     <Layout
+    //       style={{
+    //         flexDirection: "row",
+    //         borderColor: "black",
+    //         borderWidth: 1,
+    //         marginRight: 160,
+    //         borderRadius: 13,
+    //         padding: 5,
+    //         marginBottom: 5,
+    //         alignContent: "center",
+    //         alignItems: "center",
+    //       }}
+    //     >
+    //       <Text category="h6">{task.name}</Text>
+    //     </Layout>
+    //   )}
+    // </>
   ));
   const handleAdd = async () => {
     list.forEach(
       async (item) => await taskStore.addTask(item, groupId, Navigation)
     );
 
-    Navigation.replace("Lists");
+    Navigation.goBack();
+    onClose();
+    // scrollRef.current?.scrollTo({
+    //   x: pagevalue,
+    //   animated: true,
+    // });
+    // alert(scrollRef);
   };
   const handleStatus = () => {
     setStatus("urgent");
@@ -147,8 +177,6 @@ const AddTask = ({ route }) => {
                   returnKeyType="default"
                   returnKeyLabel="ADD"
                   onEndEditing={(r) => handlePress(r)}
-
-                  //   onSubmitEditing={}
                 ></TextInput>
                 {status == "urgent" ? (
                   <Button
@@ -194,25 +222,6 @@ const AddTask = ({ route }) => {
                 }}
               >
                 {taskList}
-                {/* <Text
-                    category="h6"
-                    style={{
-                      borderColor: "black",
-                      borderWidth: 1,
-                      marginRight: 170,
-                      borderRadius: 13,
-                      padding: 5,
-                      marginBottom: 5,
-                    }}
-                  >
-                    Fahad
-                  </Text>
-                  <FontAwesome
-                    name="trash-o"
-                    size={22}
-                    color="black"
-                    style={{ top: 9 }}
-                  /> */}
               </Layout>
             </Layout>
           </ScrollView>
@@ -231,7 +240,7 @@ const AddTask = ({ route }) => {
           <Button
             appearance="ghost"
             status="primary"
-            style={{ padding: 10 }}
+            style={{ top: 7 }}
             onPress={() => Navigation.goBack()}
           >
             Cancel

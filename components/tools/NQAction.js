@@ -5,7 +5,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import GroupCreateModal from "../GroupCreateModal";
 
-function NQAction({ isOpen, onClose, groupId }) {
+function NQAction({ isOpen, onClose, groupId, scrollRef, xvalue, pagevalue }) {
   const [showModal, setShowModal] = useState(false);
   const [showModal1, setShowModal1] = useState(false);
 
@@ -14,7 +14,14 @@ function NQAction({ isOpen, onClose, groupId }) {
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
         <Actionsheet.Item
-          onPress={() => Navigation.navigate("AddTask", { groupId: groupId })}
+          onPress={() =>
+            Navigation.navigate("AddTask", {
+              groupId: groupId,
+              pagevalue,
+              scrollRef,
+              onClose: onClose,
+            })
+          }
         >
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
             <AntDesign name="plus" size={24} color="#FD6B68" />
@@ -32,6 +39,8 @@ function NQAction({ isOpen, onClose, groupId }) {
           setShowModal={setShowModal}
           modalName="create"
           onClose={onClose}
+          scrollRef={scrollRef}
+          xvalue={xvalue}
         />
         <Actionsheet.Item onPress={() => setShowModal1(true)}>
           <HStack style={{ flexDirection: "row", alignItems: "center" }}>
@@ -43,6 +52,8 @@ function NQAction({ isOpen, onClose, groupId }) {
             setShowModal={setShowModal1}
             modalName="join"
             onClose={onClose}
+            scrollRef={scrollRef}
+            xvalue={xvalue}
           />
         </Actionsheet.Item>
         <Actionsheet.Item onPress={onClose}>Cancel</Actionsheet.Item>

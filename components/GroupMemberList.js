@@ -33,11 +33,11 @@ const GroupMemberList = ({ route }) => {
   const { groupId } = route.params;
   const showToast = () => {
     Toast.show({
-      type: "info",
-      text2: "copied to clipboard",
+      type: "success",
+      text1: "copied to clipboard",
       position: "bottom",
       bottomOffset: 400,
-      visibilityTime: 1000,
+      visibilityTime: 1700,
     });
   };
   const members = groupStore.groups
