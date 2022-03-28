@@ -22,27 +22,50 @@ import taskStore from "../stores/taskStore";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
+import NQHead from "./tools/NQHead";
+
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
+  const [visible, setVisible] = React.useState(false);
+
   const Navigation = useNavigation();
   const [page, setPage] = useState(0);
   let groupId = 0;
   const groups = authStore.user ? authStore.user.group : [];
+  const allGroups = groups.map((group) =>
+    groupStore.groups.find((group1) => group1._id == group)
+  );
   const { width, height } = Dimensions.get("window");
 
   const groupList = groups
     ? groups.map((group) => {
         // console.log(group);
-        return <NQList group={group} key={group._id} />;
+        return (
+          <NQList
+            group={group}
+            key={group._id}
+            setVisible={setVisible}
+            visible={visible}
+          />
+        );
       })
     : [];
 
   const handleAdd = () => {};
 
+  const userGroups = groups
+    ? groups.map((group) => {
+        // console.log(group);
+        return <NQMenu group={group} key={group._id} />;
+      })
+    : [];
+
   const handleScroll = (event) => {
     setPage(event.nativeEvent.contentOffset.x);
   };
   groupId = page / width;
+
+  console.log(groupId);
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1 }}>
@@ -58,9 +81,9 @@ const Lists = () => {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
+              marginTop: 25,
             }}
           >
-            <NQMenu />
             <MapIcon />
           </Layout>
           <Pressable onPress={() => Navigation.navigate("Profile")}>
