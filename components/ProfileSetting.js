@@ -81,7 +81,7 @@ const ProfilePage = () => {
                 value={value}
                 setValue={setValue}
               >
-                username
+                Username
               </NQInput>
 
               <Text
@@ -95,7 +95,7 @@ const ProfilePage = () => {
                 category="h6"
                 value1={value2}
                 setValue1={setValue2}
-                placeholder="new password"
+                placeholder="New Password"
               >
                 new password
               </NQPassword>
@@ -110,7 +110,7 @@ const ProfilePage = () => {
                 category="h6"
                 value1={value3}
                 setValue1={setValue3}
-                placeholder="confirm new password"
+                placeholder="Confirm New Password"
               >
                 confirm password
               </NQPassword>
@@ -125,6 +125,7 @@ const ProfilePage = () => {
                 Save
               </Button>
               <Button
+                style={{ top: 10 }}
                 appearance="ghost"
                 status="primary"
                 onPress={() => Navigation.goBack()}

@@ -8,27 +8,42 @@ import {
   Text,
   Icon,
 } from "@ui-kitten/components";
-
+import { observer } from "mobx-react";
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import groupStore from "../../stores/groupStore";
+import authStore from "../../stores/authStore";
+import NQHead from "./NQHead";
 
-const NQMenu = () => {
-  const [visible, setVisible] = React.useState(false);
+const NQMenu = ({ group, setVisible, visible, index, allGroups }) => {
+  console.log("A", authStore.user.group);
 
-  const renderToggleButton = () => (
-    <Pressable onPress={() => setVisible(true)}>
-      <Layout
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-      >
-        <Text category="h4">Home</Text>
-        <AntDesign name="down" size={24} color="black" />
-      </Layout>
-    </Pressable>
-  );
+  const groups = authStore.user ? authStore.user.group : [];
+
+  const groupList = allGroups.map((group) => (
+    <Text style={styles.txt} onPress={() => setVisible(false)}>
+      {group.name}
+    </Text>
+  ));
+  const foundGroup = groupStore.groups.find((group1) => {
+    return group1._id == group;
+  });
+  const renderToggleButton = () => {
+    return (
+      <Pressable onPress={() => setVisible(true)}>
+        <Layout
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Text category="h4">{allGroups[index].name}</Text>
+          <AntDesign name="down" size={24} color="black" />
+        </Layout>
+      </Pressable>
+    );
+  };
 
   return (
     // <Layout
@@ -61,17 +76,13 @@ const NQMenu = () => {
       onBackdropPress={() => setVisible(false)}
     >
       <Layout style={styles.content}>
-        <ScrollView style={{ width: " 100%" }}>
-          <Text style={styles.txt} onPress={() => setVisible(false)}>
-            Group name
-          </Text>
-        </ScrollView>
+        <ScrollView style={{ width: " 100%" }}>{groupList}</ScrollView>
       </Layout>
     </Popover>
   );
 };
 
-export default NQMenu;
+export default observer(NQMenu);
 
 const styles = StyleSheet.create({
   content: {

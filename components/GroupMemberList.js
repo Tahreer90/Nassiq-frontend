@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
   Keyboard,
+  Clipboard,
 } from "react-native";
 import {
   Button,
@@ -21,15 +22,27 @@ import {
   Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
+// import Clipboard from "@react-native-community/clipboard";
+import Toast from "react-native-toast-message";
 import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import groupStore from "../stores/groupStore";
 
 const GroupMemberList = ({ route }) => {
   //   console.log(groupStore.groups);
+  const { groupId } = route.params;
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "copied to clipboard",
+      position: "bottom",
+      bottomOffset: 400,
+      visibilityTime: 1700,
+    });
+  };
   const members = groupStore.groups
-    .find((groupid) => {
-      return JSON.stringify(groupid._id) == JSON.stringify(route.params.id);
+    .find((group) => {
+      return JSON.stringify(group._id) == JSON.stringify(groupId);
     })
     .user.map((user) => {
       return (
@@ -68,9 +81,21 @@ const GroupMemberList = ({ route }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Layout style={{ flex: 1 }}>
-          <Layout style={{ flex: 1, alignItems: "center" }}>
-            <Layout style={{ flexDirection: "row" }}>
-              <FontAwesome5 name="users" size={35} color="red" />
+          <Layout
+            style={{
+              flex: 1,
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Layout
+              style={{
+                flexDirection: "row",
+                flex: 6,
+                justifyContent: "center",
+              }}
+            >
+              <FontAwesome5 name="users" size={35} color="#FD6B68" />
               <Text
                 style={{
                   top: 10,
@@ -79,6 +104,22 @@ const GroupMemberList = ({ route }) => {
                 }}
               >
                 Members
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "600",
+                  color: "blue",
+                  textDecorationLine: "underline",
+                  position: "absolute",
+                  right: 20,
+                  top: 10,
+                }}
+                onPress={() => {
+                  showToast();
+                  Clipboard.setString(groupId);
+                }}
+              >
+                Invite+
               </Text>
             </Layout>
           </Layout>

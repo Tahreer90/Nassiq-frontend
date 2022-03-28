@@ -5,6 +5,7 @@ import {
   ScrollView,
   Dimensions,
   TextInput,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import taskStore from "../../stores/taskStore";
@@ -14,16 +15,20 @@ import { Layout, CheckBox, Input } from "@ui-kitten/components";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import SwipeOut from "../SwipeOut";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");
-
+  const Navigation = useNavigation();
   const foundGroup = groupStore.groups.find((group1) => {
+    console.log(group1._id, group);
     return group1._id == group;
   });
+  console.log(foundGroup);
   const tasks = foundGroup ? foundGroup.task : [];
   const [taskName, setTaskName] = useState("task.name");
+
   const taskList = tasks.map((task) => {
     return (
       <>
@@ -46,7 +51,7 @@ const NQList = ({ group }) => {
                 width: "60%",
                 maxWidth: "60%",
                 borderBottomWidth: 1,
-                borderColor: "white",
+                borderBottomColor: "white",
               }}
               onChangeText={(value) => setTaskName(value)}
             ></TextInput>
@@ -62,7 +67,9 @@ const NQList = ({ group }) => {
               name="cancel-presentation"
               size={24}
               color="white"
-              onPress={() => {}}
+              onPress={() => {
+                task.edit = false;
+              }}
             />
           </Layout>
         ) : (
@@ -82,21 +89,42 @@ const NQList = ({ group }) => {
                 taskStore.checkTask(task._id, nextChecked, foundGroup._id)
               }
             ></CheckBox>
-            <Text
-              key={task._id}
-              style={{
-                fontSize: 16,
-                fontWeight: "500",
-                width: 190,
-                backgroundColor: "#242D65",
-                color: "#FFFFFF",
-                marginBottom: 1,
-                height: 30,
-                top: 6,
-              }}
-            >
-              {task.name}
-            </Text>
+            {task.isChecked ? (
+              <Text
+                key={task._id}
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  width: 190,
+                  backgroundColor: "#242D65",
+                  color: "#C5C5C5",
+                  opacity: 1,
+                  marginBottom: 1,
+                  height: 30,
+                  top: 5,
+                  textDecorationLine: "line-through",
+                }}
+              >
+                {task.name}
+              </Text>
+            ) : (
+              <Text
+                key={task._id}
+                style={{
+                  fontSize: 16,
+                  fontWeight: "500",
+                  width: 190,
+                  backgroundColor: "#242D65",
+                  color: "#FFFFFF",
+                  marginBottom: 1,
+                  height: 30,
+                  top: 5,
+                }}
+              >
+                {task.name}
+              </Text>
+            )}
+
             <FontAwesome
               name="pencil-square-o"
               size={24}
@@ -114,19 +142,34 @@ const NQList = ({ group }) => {
   return (
     <View style={{ width: width, alignItems: "center" }}>
       <View style={styles.list}>
-        <View>
-          <Text
+        <Pressable
+          onPress={() => {
+            Navigation.navigate("GroupMemberList", {
+              groupId: foundGroup._id,
+            });
+          }}
+        >
+          <View
             style={{
-              color: "#FFFFFF",
-              marginTop: 25,
-              fontSize: 18,
-              fontWeight: "700",
+              justifyContent: "space-between",
+              flexDirection: "row",
               marginBottom: 20,
+              marginTop: 25,
             }}
           >
-            {foundGroup ? foundGroup.name : ""}
-          </Text>
-        </View>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 18,
+                fontWeight: "700",
+                marginRight: 20,
+              }}
+            >
+              {foundGroup ? foundGroup.name : ""}
+            </Text>
+            <AntDesign name="addusergroup" size={24} color="white" />
+          </View>
+        </Pressable>
 
         <ScrollView>
           <View>{taskList}</View>
@@ -140,7 +183,7 @@ export default observer(NQList);
 
 const styles = StyleSheet.create({
   list: {
-    width: 270,
+    width: 300,
     height: 450,
     marginTop: 25,
     backgroundColor: "#242D65",

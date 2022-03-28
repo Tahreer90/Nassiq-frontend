@@ -7,7 +7,7 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import NQAdd from "./tools/NQAdd";
 import NQMenu from "./tools/NQMenu";
 import MapIcon from "./tools/MapIcon";
@@ -19,23 +19,42 @@ import { NativeBaseProvider } from "native-base";
 import NQProfile from "./tools/NQProfile";
 import groupStore from "../stores/groupStore";
 import taskStore from "../stores/taskStore";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
-import SwipeOut from "./SwipeOut";
+import NQHead from "./tools/NQHead";
 
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
+  const [visible, setVisible] = React.useState(false);
+
   const Navigation = useNavigation();
   const [page, setPage] = useState(0);
   let groupId = 0;
   const groups = authStore.user ? authStore.user.group : [];
+  const allGroups = groups.map((group) =>
+    groupStore.groups.find((group1) => group1._id == group)
+  );
   const { width, height } = Dimensions.get("window");
 
   const groupList = groups
     ? groups.map((group) => {
-        console.log(group);
-        return <NQList group={group} key={group._id} />;
+        // console.log(group);
+        return (
+          <NQList
+            group={group}
+            key={group._id}
+            setVisible={setVisible}
+            visible={visible}
+          />
+        );
+      })
+    : [];
+
+  const userGroups = groups
+    ? groups.map((group) => {
+        // console.log(group);
+        return <NQMenu group={group} key={group._id} />;
       })
     : [];
 
@@ -43,6 +62,11 @@ const Lists = () => {
     setPage(event.nativeEvent.contentOffset.x);
   };
   groupId = page / width;
+
+  console.log(groupId);
+
+  const scrollRef = useRef();
+
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1 }}>
@@ -58,9 +82,9 @@ const Lists = () => {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
+              marginTop: 25,
             }}
           >
-            <NQMenu />
             <MapIcon />
           </Layout>
           <Pressable onPress={() => Navigation.navigate("Profile")}>
@@ -81,6 +105,7 @@ const Lists = () => {
             pagingEnabled={true}
             style={{ flex: 1 }}
             onScroll={(event) => handleScroll(event)}
+            ref={scrollRef}
           >
             {groupList}
           </ScrollView>
@@ -91,6 +116,9 @@ const Lists = () => {
             isOpen={isOpen}
             onClose={onClose}
             groupId={groups[groupId]}
+            pagevalue={width * groupId}
+            scrollRef={scrollRef}
+            xvalue={width * groups.length + 1}
           />
         </Layout>
       </SafeAreaView>

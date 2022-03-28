@@ -43,7 +43,7 @@ const Signin = ({ navigation }) => {
       <View style={styles.captionContainer}>
         {AlertIcon(styles.captionIcon)}
         <Text style={styles.captionText}>
-          Should contain at least 8 symbols
+          Should contain at least 6 characters
         </Text>
       </View>
     );
@@ -75,7 +75,7 @@ const Signin = ({ navigation }) => {
             status={true}
             value1={value1}
             setValue1={setValue1}
-            placeholder="password"
+            placeholder="Password"
             style={{
               marginTop: 30,
             }}

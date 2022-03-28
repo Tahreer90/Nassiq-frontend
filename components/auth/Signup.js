@@ -72,7 +72,7 @@ const Signup = ({ navigation }) => {
             status={true}
             value1={value1}
             setValue1={setValue1}
-            placeholder="password"
+            placeholder="Password"
             style={{
               marginTop: 30,
             }}
