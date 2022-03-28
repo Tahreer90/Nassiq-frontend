@@ -5,6 +5,7 @@ import {
   ScrollView,
   Dimensions,
   TextInput,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import taskStore from "../../stores/taskStore";
@@ -14,10 +15,12 @@ import { Layout, CheckBox, Input } from "@ui-kitten/components";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");
-
+  const Navigation = useNavigation();
   const foundGroup = groupStore.groups.find((group1) => {
     console.log(group1._id, group);
     return group1._id == group;
@@ -25,6 +28,14 @@ const NQList = ({ group }) => {
   console.log(foundGroup);
   const tasks = foundGroup ? foundGroup.task : [];
   const [taskName, setTaskName] = useState("task.name");
+  //   const handleEdit = (task) => {
+  // tasks.forEach(task1 => {
+  //   if (task1._id == task._id)
+  //   task1.edit = false;
+  //   task.edit = true;
+
+  // });
+  //   }
   const taskList = tasks.map((task) => {
     return (
       <>
@@ -61,7 +72,9 @@ const NQList = ({ group }) => {
               name="cancel-presentation"
               size={24}
               color="white"
-              onPress={() => {}}
+              onPress={() => {
+                task.edit = false;
+              }}
             />
           </Layout>
         ) : (
@@ -112,19 +125,34 @@ const NQList = ({ group }) => {
   return (
     <View style={{ width: width, alignItems: "center" }}>
       <View style={styles.list}>
-        <View>
-          <Text
+        <Pressable
+          onPress={() => {
+            Navigation.navigate("GroupMemberList", {
+              groupId: foundGroup._id,
+            });
+          }}
+        >
+          <View
             style={{
-              color: "#FFFFFF",
-              marginTop: 25,
-              fontSize: 18,
-              fontWeight: "700",
+              justifyContent: "space-between",
+              flexDirection: "row",
               marginBottom: 20,
+              marginTop: 25,
             }}
           >
-            {foundGroup ? foundGroup.name : ""}
-          </Text>
-        </View>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 18,
+                fontWeight: "700",
+                marginRight: 20,
+              }}
+            >
+              {foundGroup ? foundGroup.name : ""}
+            </Text>
+            <AntDesign name="addusergroup" size={24} color="white" />
+          </View>
+        </Pressable>
 
         <ScrollView>
           <View>{taskList}</View>
