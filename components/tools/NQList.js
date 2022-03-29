@@ -22,10 +22,10 @@ const NQList = ({ group }) => {
   const { width, height } = Dimensions.get("window");
   const Navigation = useNavigation();
   const foundGroup = groupStore.groups.find((group1) => {
-    console.log(group1._id, group);
+    // console.log(group1._id, group);
     return group1._id == group;
   });
-  console.log(foundGroup);
+  // console.log(foundGroup);
   const tasks = foundGroup ? foundGroup.task : [];
   const [taskName, setTaskName] = useState("task.name");
 

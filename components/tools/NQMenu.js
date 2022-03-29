@@ -16,7 +16,7 @@ import authStore from "../../stores/authStore";
 import NQHead from "./NQHead";
 
 const NQMenu = ({ group, setVisible, visible, index, allGroups }) => {
-  console.log("A", authStore.user.group);
+  // console.log("A", authStore.user.group);
 
   const groups = authStore.user ? authStore.user.group : [];
 

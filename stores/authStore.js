@@ -51,10 +51,9 @@ class AuthStore {
     try {
       const decodedToken = decode(token);
       const res = await instance.get(`/auth/${decodedToken._id}`);
-      await groupStore.fetchGroups();
       this.user = res.data;
-      console.log("-------======+++++++++=====", this.user);
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+      await groupStore.fetchGroups();
       await AsyncStorage.setItem("token2", token);
       const newUser = await AsyncStorage.getItem("token2");
     } catch (error) {
@@ -64,7 +63,30 @@ class AuthStore {
 
   updateUserInfo = async (updateInfo) => {
     try {
-      const response = await instance.put("/auth/update", updateInfo);
+      console.log("what is happening here?");
+      const fdata = new FormData();
+      for (const key in updateInfo) {
+        if (key == "image" && updateInfo.image != this.user.image) {
+          fdata.append("image", {
+            type: updateInfo.image.type,
+            uri: updateInfo.image.uri,
+            name: updateInfo.image.uri.split("/").pop(),
+          });
+        } else {
+          fdata.append(key, updateInfo[key]);
+        }
+        console.log(key, key == "image");
+      }
+      console.log("what is happening here?1");
+
+      const response = await instance.put("/auth/update", fdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        transformRequest: (data, headers) => {
+          return fdata; // this is doing the trick
+        },
+      });
       const { token } = response.data;
       console.log(token);
       // this.signout();
@@ -79,6 +101,7 @@ class AuthStore {
         const decodedToken = decode(token);
         if (Date.now() < decodedToken.exp) {
           this.setUser(token);
+          console.log("=====>", this.user.username);
         } else {
           this.signout();
         }
