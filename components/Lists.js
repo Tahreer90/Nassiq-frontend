@@ -82,7 +82,7 @@ const Lists = () => {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
-              marginTop: 25,
+              top: 65,
             }}
           >
             <MapIcon />
