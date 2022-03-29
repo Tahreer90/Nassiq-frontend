@@ -21,6 +21,7 @@ import { ThemeContext } from "../components/navigation/theme-context";
 import authStore from "../stores/authStore";
 import { useNavigation } from "@react-navigation/core";
 import { baseUrl } from "../stores/instance";
+import GroupMemberList from "../components/GroupMemberList";
 
 const Profile = () => {
   const username = authStore.user;
@@ -96,6 +97,12 @@ const Profile = () => {
               />
             </Layout>
           </Pressable>
+          {/* <Pressable
+            onPress={() => Navigation.navigate("GroupMemberList")}
+            style={{
+              flex: 1.5,
+            }}
+          > */}
           <Layout
             style={{
               flex: 1,
@@ -121,6 +128,8 @@ const Profile = () => {
               style={{ position: "absolute", right: 10, top: 13 }}
             />
           </Layout>
+          {/* </Pressable> */}
+
           <Layout
             style={{
               flex: 1,
@@ -212,6 +221,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
     fontSize: 22,
+    marginLeft: 10,
   },
   bell: {
     left: 130,
