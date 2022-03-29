@@ -18,6 +18,9 @@ import { useNavigation } from "@react-navigation/native";
 const Signup = ({ navigation }) => {
   if (authStore.user) navigation.replace("Lists");
 
+  authStore.fetchAllUsers();
+  const [length, setLength] = React.useState(false);
+  const [isExist, setIsExist] = React.useState(false);
   const [value, setValue] = React.useState("");
   const [value1, setValue1] = React.useState("");
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
@@ -26,6 +29,7 @@ const Signup = ({ navigation }) => {
     password: value1,
   };
   const Navigation = useNavigation();
+  let foundUser = null;
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
@@ -48,8 +52,15 @@ const Signup = ({ navigation }) => {
   };
 
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
+
   const handleSubmit = () => {
-    authStore.signup(user, Navigation);
+    foundUser = authStore.users.find(
+      (user1) => user1.username == user.username
+    );
+    if (value1.length < 6) setLength(true);
+    if (foundUser) setIsExist(true);
+    else if (!foundUser && value1.length > 6)
+      authStore.signup(user, Navigation);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -77,6 +88,19 @@ const Signup = ({ navigation }) => {
               marginTop: 30,
             }}
           />
+          {isExist ? (
+            <Text style={styles.txt}>username already exists!</Text>
+          ) : (
+            <Text></Text>
+          )}
+
+          {length ? (
+            <Text style={styles.txt}>
+              password should contain at least 6 characters!
+            </Text>
+          ) : (
+            <Text></Text>
+          )}
 
           <NQButton txt={"Register"} onclick={handleSubmit} />
           <Layout style={{ flexDirection: "row", marginTop: 10 }}>
@@ -106,4 +130,11 @@ const Signup = ({ navigation }) => {
 
 export default Signup;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  txt: {
+    color: "red",
+    padding: 5,
+    left: 2,
+    bottom: 10,
+  },
+});

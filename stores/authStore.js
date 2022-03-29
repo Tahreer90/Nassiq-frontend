@@ -9,6 +9,16 @@ class AuthStore {
     makeAutoObservable(this);
   }
   user = null;
+  users = [];
+
+  fetchAllUsers = async () => {
+    try {
+      const userResponse = await instance.get("/auth/all");
+      this.users = userResponse.data;
+    } catch (error) {
+      console.log("error message", error);
+    }
+  };
 
   signup = async (userData, navigation) => {
     try {

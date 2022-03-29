@@ -36,6 +36,7 @@ const NQPassword = ({ value1, setValue1, placeholder, status }) => {
         style={styles.inpt}
         value={value1}
         placeholder={placeholder}
+        returnKeyType="done"
         secureTextEntry={secureTextEntry}
         accessoryRight={renderIcon}
         onChangeText={(nextValue) => setValue1(nextValue)}

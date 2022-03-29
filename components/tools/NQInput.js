@@ -9,6 +9,7 @@ const NQInput = ({ value, setValue, placeholder, size }) => {
       <Input
         style={styles.inpt}
         placeholder={placeholder ?? "Username"}
+        returnKeyType="done"
         value={value}
         onChangeText={(nextValue) => setValue(nextValue)}
       />
