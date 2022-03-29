@@ -7,12 +7,12 @@ import {
   Clipboard,
 } from "react-native";
 import {
-  Button,
   Layout,
   Text,
   Input,
   Icon,
   Avatar,
+  Button,
 } from "@ui-kitten/components";
 import React from "react";
 import NQInput from "./tools/NQInput";
@@ -60,39 +60,38 @@ const GroupMemberList = ({ route }) => {
           <Text
             style={{
               top: 20,
-
               fontWeight: "bold",
             }}
           >
             {user.username}
           </Text>
-          <Button
+          {/* <Button
             style={{ position: "absolute", right: 5, top: 9 }}
             appearance="ghost"
             status="primary"
           >
             Remove
-          </Button>
+          </Button> */}
         </Layout>
       );
     });
-  console.log("1+++++++++++", members);
-  console.log(route.params.id);
+  //console.log("1+++++++++++", members);
+  //console.log(route.params.id);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Layout style={{ flex: 1 }}>
           <Layout
             style={{
-              flex: 1,
+              flex: 2,
               alignItems: "center",
               flexDirection: "row",
             }}
           >
             <Layout
               style={{
-                flexDirection: "row",
                 flex: 6,
+                alignItems: "center",
                 justifyContent: "center",
               }}
             >
@@ -104,27 +103,20 @@ const GroupMemberList = ({ route }) => {
                   fontWeight: "bold",
                 }}
               >
-                Members
+                Group Name
               </Text>
-              <Text
-                style={{
-                  fontWeight: "600",
-                  color: "blue",
-                  textDecorationLine: "underline",
-                  position: "absolute",
-                  right: 20,
-                  top: 10,
-                }}
+              <Button
+                style={styles.btn}
                 onPress={() => {
                   showToast();
                   Clipboard.setString(groupId);
                 }}
               >
                 Invite+
-              </Text>
+              </Button>
             </Layout>
           </Layout>
-          <Layout style={{ flex: 9 }}>
+          <Layout style={{ flex: 9, bottom: 5 }}>
             <ScrollView>{members}</ScrollView>
           </Layout>
         </Layout>
@@ -135,4 +127,13 @@ const GroupMemberList = ({ route }) => {
 
 export default observer(GroupMemberList);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: {
+    borderRadius: 50,
+    fontWeight: "600",
+    backgroundColor: "#FD6B68",
+    top: 10,
+    marginTop: 10,
+    marginLeft: 15,
+  },
+});
