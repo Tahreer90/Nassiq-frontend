@@ -27,6 +27,7 @@ import Toast from "react-native-toast-message";
 import { ScrollView } from "react-native-gesture-handler";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import groupStore from "../stores/groupStore";
+import { observer } from "mobx-react";
 
 const GroupMemberList = ({ route }) => {
   //   console.log(groupStore.groups);
@@ -132,6 +133,6 @@ const GroupMemberList = ({ route }) => {
   );
 };
 
-export default GroupMemberList;
+export default observer(GroupMemberList);
 
 const styles = StyleSheet.create({});
