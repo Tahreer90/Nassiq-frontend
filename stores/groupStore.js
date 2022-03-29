@@ -37,7 +37,7 @@ class GroupStore {
       console.log("first", groupId);
       const response = await instance.post(`/group/join/${groupId}`);
       await this.fetchGroups();
-      // await authStore.updateUserInfo();
+      await authStore.updateUserInfo();
       socket.emit("frontend", "Join");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);
