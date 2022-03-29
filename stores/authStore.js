@@ -22,6 +22,7 @@ class AuthStore {
 
   signup = async (userData, navigation) => {
     try {
+      console.log("object");
       const response = await instance.post("/auth/signup", userData);
       const { token } = response.data;
       await groupStore.fetchGroups();
@@ -75,33 +76,42 @@ class AuthStore {
   updateUserInfo = async (updateInfo) => {
     try {
       console.log("what is happening here?");
-      const fdata = new FormData();
-      for (const key in updateInfo) {
-        if (key == "image" && updateInfo.image != this.user.image) {
-          fdata.append("image", {
-            type: updateInfo.image.type,
-            uri: updateInfo.image.uri,
-            name: updateInfo.image.uri.split("/").pop(),
-          });
-        } else {
-          fdata.append(key, updateInfo[key]);
-        }
-        console.log(key, key == "image");
-      }
-      console.log("what is happening here?1");
 
-      const response = await instance.put("/auth/update", fdata, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        transformRequest: (data, headers) => {
-          return fdata; // this is doing the trick
-        },
-      });
-      const { token } = response.data;
-      console.log(token);
-      // this.signout();
-      this.setUser(token);
+      if (updateInfo) {
+        const fdata = new FormData();
+        for (const key in updateInfo) {
+          if (key == "image" && updateInfo.image != this.user.image) {
+            fdata.append("image", {
+              type: updateInfo.image.type,
+              uri: updateInfo.image.uri,
+              name: updateInfo.image.uri.split("/").pop(),
+            });
+          } else {
+            fdata.append(key, updateInfo[key]);
+          }
+          console.log(key, key == "image");
+        }
+        console.log("what is happening here?1");
+
+        const response = await instance.put("/auth/update", fdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          transformRequest: (data, headers) => {
+            return fdata; // this is doing the trick
+          },
+        });
+        const { token } = response.data;
+        console.log(token);
+        // this.signout();
+        this.setUser(token);
+      } else {
+        const response = await instance.put("/auth/update");
+        const { token } = response.data;
+        console.log(token);
+        // this.signout();
+        this.setUser(token);
+      }
     } catch (error) {}
   };
 

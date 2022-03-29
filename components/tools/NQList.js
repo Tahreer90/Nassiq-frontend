@@ -47,6 +47,7 @@ const NQList = ({ group }) => {
               value={taskName}
               color="white"
               style={{
+                fontSize: 22,
                 marginLeft: "10%",
                 width: "60%",
                 maxWidth: "60%",
@@ -57,7 +58,8 @@ const NQList = ({ group }) => {
             ></TextInput>
             <Feather
               name="check-square"
-              size={24}
+              size={28}
+              style={{ right: 2 }}
               color="white"
               onPress={() =>
                 taskStore.updateTask(foundGroup._id, task._id, task, taskName)
@@ -65,7 +67,8 @@ const NQList = ({ group }) => {
             />
             <MaterialIcons
               name="cancel-presentation"
-              size={24}
+              size={28}
+              style={{ left: 2 }}
               color="white"
               onPress={() => {
                 task.edit = false;
@@ -93,7 +96,7 @@ const NQList = ({ group }) => {
               <Text
                 key={task._id}
                 style={{
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: "500",
                   width: 190,
                   backgroundColor: "#242D65",
@@ -101,33 +104,44 @@ const NQList = ({ group }) => {
                   opacity: 1,
                   marginBottom: 1,
                   height: 30,
-                  top: 5,
+                  top: 3,
                   textDecorationLine: "line-through",
                 }}
               >
                 {task.name}
               </Text>
             ) : (
-              <Text
-                key={task._id}
+              <View
                 style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  width: 190,
-                  backgroundColor: "#242D65",
-                  color: "#FFFFFF",
-                  marginBottom: 1,
-                  height: 30,
-                  top: 5,
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                 }}
               >
-                {task.name}
-              </Text>
+                <Text
+                  key={task._id}
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "500",
+                    width: 190,
+                    backgroundColor: "red", // "#242D65",
+                    color: "#FFFFFF",
+                    marginBottom: 1,
+                    height: 30,
+                    top: 3,
+                    // maxWidth: 180,
+                    // flexWrap: "wrap",
+                    // alignItems: "flex-start",
+                    flexShrink: 1,
+                  }}
+                >
+                  {task.name}
+                </Text>
+              </View>
             )}
 
             <FontAwesome
               name="pencil-square-o"
-              size={24}
+              size={28}
               color="white"
               onPress={() => {
                 setTaskName(task.name);

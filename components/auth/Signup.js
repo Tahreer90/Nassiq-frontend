@@ -60,10 +60,12 @@ const Signup = ({ navigation }) => {
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
+    console.log(value1.length < 6);
+    console.log(foundUser);
+    console.log(!foundUser && value1.length > 6);
     if (value1.length < 6) setLength(true);
     if (foundUser) setIsExist(true);
-    else if (!foundUser && value1.length > 6)
-      authStore.signup(user, Navigation);
+    if (!foundUser && value1.length > 6) authStore.signup(user, Navigation);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
