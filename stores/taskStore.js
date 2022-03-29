@@ -78,6 +78,9 @@ class TaskStore {
     const foundTask = foundGroup.task.find(
       (task) => JSON.stringify(task._id) == JSON.stringify(taskId)
     );
+    foundGroup.task.forEach((task) => {
+      task.edit = false;
+    });
     foundTask.edit = true;
   };
 

@@ -16,7 +16,6 @@ import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 
 const Signin = ({ navigation }) => {
-  console.log("object======>", authStore.user);
   if (authStore.user) {
     navigation.replace("Lists");
   }
