@@ -14,6 +14,7 @@ import NQInput from "../tools/NQInput";
 import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react";
 
 const Signup = ({ navigation }) => {
   if (authStore.user) navigation.replace("Lists");
@@ -54,6 +55,8 @@ const Signup = ({ navigation }) => {
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
   const handleSubmit = () => {
+    setLength(false);
+    setIsExist(false);
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
@@ -128,7 +131,7 @@ const Signup = ({ navigation }) => {
   );
 };
 
-export default Signup;
+export default observer(Signup);
 
 const styles = StyleSheet.create({
   txt: {

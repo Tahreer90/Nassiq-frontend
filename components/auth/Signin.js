@@ -20,8 +20,13 @@ const Signin = ({ navigation }) => {
   if (authStore.user) {
     navigation.replace("Lists");
   }
+  authStore.fetchAllUsers();
+  let foundUser = null;
+
   const [value, setValue] = React.useState(""); //username
   const [value1, setValue1] = React.useState(""); //password
+  const [isExist, setIsExist] = React.useState(true);
+  const [isCorrect, setCorrect] = React.useState(true);
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   const Navigation = useNavigation();
   const user = {
@@ -51,7 +56,15 @@ const Signin = ({ navigation }) => {
 
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
   const handleSubmit = () => {
-    authStore.signin(user, Navigation);
+    setIsExist(true);
+    setCorrect(true);
+    foundUser = authStore.users.find(
+      (user1) => user1.username == user.username
+    );
+    if (!foundUser) setIsExist(false);
+    else if (foundUser) {
+      authStore.signin(user, Navigation, setCorrect);
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -80,7 +93,16 @@ const Signin = ({ navigation }) => {
               marginTop: 30,
             }}
           />
-
+          {!isExist ? (
+            <Text style={styles.txt}>username does not exist!</Text>
+          ) : (
+            <Text></Text>
+          )}
+          {!isCorrect ? (
+            <Text style={styles.txt}>incorrect password!</Text>
+          ) : (
+            <Text></Text>
+          )}
           <NQButton txt={"Log in"} onclick={handleSubmit} />
           <Layout style={{ flexDirection: "row", marginTop: 10 }}>
             <Text>Not a user?</Text>
@@ -103,4 +125,11 @@ const Signin = ({ navigation }) => {
 
 export default observer(Signin);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  txt: {
+    color: "red",
+    padding: 5,
+    left: 2,
+    bottom: 10,
+  },
+});

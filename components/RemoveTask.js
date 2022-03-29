@@ -1,8 +1,9 @@
 import Swipeout from "react-native-swipeout";
 import { StyleSheet, View, Text } from "react-native";
 import { Layout } from "@ui-kitten/components";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const RemoveTask = ({ dfunction, taskname, taskIndex }) => {
+const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
   var swipeoutBtns = [
     {
       text: "Delete",
@@ -37,10 +38,20 @@ const RemoveTask = ({ dfunction, taskname, taskIndex }) => {
             marginBottom: 5,
             alignContent: "center",
             alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
           <View>
             <Text>{taskname}</Text>
+          </View>
+          <View>
+            {type == "High" ? (
+              <>
+                <MaterialIcons name="priority-high" size={24} color="#FD6B68" />
+              </>
+            ) : (
+              <></>
+            )}
           </View>
         </Layout>
       </Swipeout>

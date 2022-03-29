@@ -5,7 +5,7 @@ import React from "react";
 
 const NQPassword = ({ value1, setValue1, placeholder, status }) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-  console.log(status);
+  // console.log(status);
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
