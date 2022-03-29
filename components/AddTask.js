@@ -35,7 +35,11 @@ const AddTask = ({ route }) => {
   const Navigation = useNavigation();
   const username = authStore.user;
   const [status, setStatus] = useState("normal");
+  const [visible, setVisible] = React.useState(false);
 
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
   const [inputSaver, setInputSaver] = useState("");
   console.log(inputSaver);
   const [list, setList] = useState([]);
@@ -174,30 +178,31 @@ const AddTask = ({ route }) => {
                   value={inputSaver}
                   onChangeText={setInputSaver}
                   placeholder="type the task here"
-                  returnKeyType="default"
+                  returnKeyType="done"
                   returnKeyLabel="ADD"
                   onEndEditing={(r) => handlePress(r)}
                 ></TextInput>
-                {status == "urgent" ? (
-                  <Button
-                    onPress={() => setStatus("normal")}
-                    style={{
-                      width: "30%",
-                      borderRadius: 15,
-                      backgroundColor: "green",
-                      borderColor: "white",
+
+                <Menu
+                  visible={visible}
+                  onDismiss={closeMenu}
+                  anchor={<Button onPress={openMenu}>{status} </Button>}
+                >
+                  <Menu.Item
+                    onPress={() => {
+                      setStatus("urgent");
+                      closeMenu();
                     }}
-                  >
-                    urgent
-                  </Button>
-                ) : (
-                  <Button
-                    onPress={handleStatus}
-                    style={{ width: "30%", borderRadius: 15 }}
-                  >
-                    urgent
-                  </Button>
-                )}
+                    title="urgent"
+                  />
+                  <Menu.Item
+                    onPress={() => {
+                      setStatus("normal");
+                      closeMenu();
+                    }}
+                    title="normal"
+                  />
+                </Menu>
               </Layout>
 
               <Layout

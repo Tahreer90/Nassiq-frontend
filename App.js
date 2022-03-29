@@ -8,6 +8,7 @@ import { ThemeContext } from "./components/navigation/theme-context";
 import myTheme from "./theme.json";
 import { SSRProvider } from "@react-aria/ssr";
 import Toast from "react-native-toast-message";
+import { Provider as PaperProvider } from "react-native-paper";
 
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
@@ -20,14 +21,16 @@ export default () => {
   };
 
   return (
-    <SSRProvider>
-      <IconRegistry icons={EvaIconsPack} />
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ApplicationProvider {...eva} theme={{ ...eva[theme], ...myTheme }}>
-          <Navigation />
-          <Toast />
-        </ApplicationProvider>
-      </ThemeContext.Provider>
-    </SSRProvider>
+    <PaperProvider>
+      <SSRProvider>
+        <IconRegistry icons={EvaIconsPack} />
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <ApplicationProvider {...eva} theme={{ ...eva[theme], ...myTheme }}>
+            <Navigation />
+            <Toast />
+          </ApplicationProvider>
+        </ThemeContext.Provider>
+      </SSRProvider>
+    </PaperProvider>
   );
 };
