@@ -15,7 +15,7 @@ import SwipeOut from "../SwipeOut";
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signup">
+  <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
     <Screen name="SwipeOut" component={SwipeOut} />

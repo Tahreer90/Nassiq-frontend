@@ -32,8 +32,9 @@ class TaskStore {
       list.isChecked = false;
       const response = await instance.post(`/task/new/${groupId}`, list);
       this.tasks.push(response.data);
-      await groupStore.fetchGroups();
       socket.emit("frontend", "Add");
+      groupStore.fetchGroups();
+      // await groupStore.fetchGroups();
     } catch (error) {
       console.log(error);
     }
@@ -48,8 +49,8 @@ class TaskStore {
         (task) => JSON.stringify(task._id) == JSON.stringify(taskId)
       );
       foundTask.isChecked = nextChecked;
-      socket.emit("frontend", "Check");
       await this.updateTask(groupId, taskId, foundTask);
+      socket.emit("frontend", "Check");
     } catch (error) {}
   };
 
@@ -63,6 +64,7 @@ class TaskStore {
         `/task/update/${groupId}/${taskId}`,
         newTask
       );
+      socket.emit("frontend", "Check");
 
       await groupStore.fetchGroups();
       await this.fetchTasks();

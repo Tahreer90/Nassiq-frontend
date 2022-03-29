@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Keyboard,
   Image,
+  Pressable,
 } from "react-native";
 import {
   Button,
@@ -14,7 +15,7 @@ import {
   Icon,
   Avatar,
 } from "@ui-kitten/components";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NQInput from "./tools/NQInput";
 import NQPassword from "./tools/NQPassword";
 import NQButton from "./tools/NQButton";
@@ -23,6 +24,7 @@ import { useNavigation } from "@react-navigation/core";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
+import * as ImagePicker from "expo-image-picker";
 
 const ProfilePage = () => {
   const Navigation = useNavigation();
@@ -30,16 +32,33 @@ const ProfilePage = () => {
   const [value, setValue] = React.useState(username.username);
   const [value2, setValue2] = React.useState("");
   const [value3, setValue3] = React.useState("");
+  const [image, setImage] = useState(username.image);
 
   const confirmation = value2 == value3;
 
-  const updateInfo = { newusername: value, newpassword: value2 };
+  const updateInfo = { newusername: value, newpassword: value2, image };
   const handleSave = async () => {
     await authStore.updateUserInfo(updateInfo);
     Navigation.goBack();
     Navigation.goBack();
-    Navigation.goBack();
   };
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
+  console.log(image.uri ? image.uri : baseUrl + "/" + username.image);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAwareScrollView
@@ -60,11 +79,20 @@ const ProfilePage = () => {
               >
                 <Text category="h5">Edit Profile</Text>
               </Layout>
-              <Image
-                style={styles.image}
-                size={50}
-                source={{ uri: baseUrl + "/" + username.image }}
-              />
+              <Pressable
+                onPress={() => {
+                  console.log("object");
+                  pickImage();
+                }}
+              >
+                <Image
+                  style={styles.image}
+                  size={50}
+                  source={{
+                    uri: image.uri ? image.uri : baseUrl + "/" + username.image,
+                  }}
+                />
+              </Pressable>
             </Layout>
 
             <Layout style={{ flex: 3, marginLeft: 25 }}>
