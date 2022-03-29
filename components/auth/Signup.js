@@ -14,6 +14,7 @@ import NQInput from "../tools/NQInput";
 import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react";
 
 const Signup = ({ navigation }) => {
   if (authStore.user) navigation.replace("Lists");
@@ -57,10 +58,12 @@ const Signup = ({ navigation }) => {
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
+    console.log(value1.length < 6);
+    console.log(foundUser);
+    console.log(!foundUser && value1.length > 6);
     if (value1.length < 6) setLength(true);
     if (foundUser) setIsExist(true);
-    else if (!foundUser && value1.length > 6)
-      authStore.signup(user, Navigation);
+    if (!foundUser && value1.length > 6) authStore.signup(user, Navigation);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -128,7 +131,7 @@ const Signup = ({ navigation }) => {
   );
 };
 
-export default Signup;
+export default observer(Signup);
 
 const styles = StyleSheet.create({
   txt: {
