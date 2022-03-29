@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Avatar, Layout } from "@ui-kitten/components";
-import { VStack } from "native-base";
+import { HStack, VStack } from "native-base";
 import authStore from "../../stores/authStore";
 import { baseUrl } from "../../stores/instance";
 
@@ -15,14 +15,17 @@ const NQProfile = () => {
         alignItems: "center",
       }}
     >
-      <Avatar
-        style={{ marginTop: 20, left: 20 }}
-        size="giant"
-        source={{ uri: baseUrl + "/" + username.image }}
-      />
       <VStack style={{ marginTop: 20, left: 25 }}>
-        <Text>Hello</Text>
-        <Text>{username.username}</Text>
+        <HStack>
+          <Text>Hello</Text>
+          <Text style={{ marginLeft: 5 }}>{username.username}</Text>
+        </HStack>
+
+        <Image
+          style={styles.image}
+          size={45}
+          source={{ uri: baseUrl + "/" + username.image }}
+        />
       </VStack>
     </View>
   );
@@ -30,4 +33,12 @@ const NQProfile = () => {
 
 export default NQProfile;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    marginTop: 20,
+    height: 100,
+    width: 100,
+    borderRadius: 70,
+    alignSelf: "center",
+  },
+});
