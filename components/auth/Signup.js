@@ -88,7 +88,7 @@ const Signup = ({ navigation }) => {
             status={true}
             value1={value1}
             setValue1={setValue1}
-            placeholder="Password"
+            placeholder="Password (at least 7 characters)"
             style={{
               marginTop: 30,
             }}
@@ -101,7 +101,7 @@ const Signup = ({ navigation }) => {
 
           {length ? (
             <Text style={styles.txt}>
-              password should contain at least 6 characters!
+              password should contain at least 7 characters!
             </Text>
           ) : (
             <Text></Text>
