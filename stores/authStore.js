@@ -35,15 +35,16 @@ class AuthStore {
     }
   };
 
-  signin = async (userData, navigation) => {
+  signin = async (userData, navigation, setCorrect) => {
     try {
       const response = await instance.post("/auth/signin", userData);
       const { token } = response.data;
       this.setUser(token);
       await groupStore.fetchGroups(); // useEffect
-
+      setCorrect(true);
       navigation.replace("Lists");
     } catch (error) {
+      setCorrect(false);
       console.log(error);
     }
   };

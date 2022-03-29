@@ -55,6 +55,8 @@ const Signup = ({ navigation }) => {
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
   const handleSubmit = () => {
+    setLength(false);
+    setIsExist(false);
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
