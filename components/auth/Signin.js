@@ -15,9 +15,16 @@ import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 import { observer } from "mobx-react";
 
-const Signin = ({ navigation }) => {
+const Signin = ({
+  navigation,
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => {
+  const Navigation = useNavigation();
+
   if (authStore.user) {
-    navigation.replace("Lists");
+    Navigation.replace("Lists");
   }
   authStore.fetchAllUsers();
   let foundUser = null;
@@ -27,7 +34,6 @@ const Signin = ({ navigation }) => {
   const [isExist, setIsExist] = React.useState(true);
   const [isCorrect, setCorrect] = React.useState(true);
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-  const Navigation = useNavigation();
   const user = {
     username: value,
     password: value1,
@@ -62,7 +68,14 @@ const Signin = ({ navigation }) => {
     );
     if (!foundUser) setIsExist(false);
     else if (foundUser) {
-      authStore.signin(user, Navigation, setCorrect);
+      authStore.signin(
+        user,
+        Navigation,
+        setCorrect,
+        registerForPushNotificationsAsync,
+        setExpoPushToken,
+        expoPushToken
+      );
     }
   };
   return (

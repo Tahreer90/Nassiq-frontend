@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
 import { instance, socket } from "./instance";
+import axios from "axios";
 
 class GroupStore {
   groups = [];
@@ -38,6 +39,16 @@ class GroupStore {
       const response = await instance.post(`/group/join/${groupId}`);
       await this.fetchGroups();
       await authStore.updateUserInfo();
+      groupStore.fetchGroups();
+      const foundGroup = this.groups.find(
+        (group) => JSON.stringify(group._id) == JSON.stringify(groupId)
+      );
+      const members = foundGroup.user.map((user) => user.expoToken);
+      await axios.post("https://exp.host/--/api/v2/push/send", {
+        to: members,
+        title: "New member",
+        body: `new member joined ${foundGroup.name} group`,
+      });
       socket.emit("frontend", "Join");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);

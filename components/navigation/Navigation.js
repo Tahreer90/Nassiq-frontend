@@ -15,7 +15,11 @@ import Lists from "../Lists";
 import SwipeOut from "../SwipeOut";
 const { Navigator, Screen } = createStackNavigator();
 
-const HomeNavigator = () => (
+const HomeNavigator = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => (
   <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
@@ -26,14 +30,51 @@ const HomeNavigator = () => (
     <Screen name="GroupMemberList" component={GroupMemberList} />
     <Screen name="GroupList" component={GroupList} />
     <Screen name="Details" component={Details} />
-    <Screen name="Signin" component={Signin} />
-    <Screen name="Signup" component={Signup} />
-    <Screen name="Lists" component={Lists} />
+    <Screen
+      name="Signin"
+      component={(navigation) => (
+        <Signin
+          navigation={navigation}
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
+    <Screen
+      name="Signup"
+      component={(navigation) => (
+        <Signup
+          navigation={navigation}
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
+    <Screen
+      name="Lists"
+      component={() => (
+        <Lists
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
   </Navigator>
 );
 
-export const Navigation = () => (
+export const Navigation = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => (
   <NavigationContainer>
-    <HomeNavigator />
+    <HomeNavigator
+      expoPushToken={expoPushToken}
+      registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+      setExpoPushToken={setExpoPushToken}
+    />
   </NavigationContainer>
 );

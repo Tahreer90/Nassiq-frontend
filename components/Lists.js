@@ -24,7 +24,11 @@ import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
 import NQHead from "./tools/NQHead";
 
-const Lists = () => {
+const Lists = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const [visible, setVisible] = React.useState(false);
 
@@ -88,7 +92,15 @@ const Lists = () => {
           >
             <MapIcon />
           </Layout>
-          <Pressable onPress={() => Navigation.navigate("Profile")}>
+          <Pressable
+            onPress={() => {
+              console.log("ssdjskldjlksjdls=======");
+              registerForPushNotificationsAsync().then((token) =>
+                setExpoPushToken(token)
+              );
+              Navigation.navigate("Profile");
+            }}
+          >
             <NQProfile />
           </Pressable>
         </Layout>
