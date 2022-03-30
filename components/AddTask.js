@@ -23,6 +23,7 @@ import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
 import RemoveTask from "./RemoveTask";
+import { ThemeContext } from "./navigation/theme-context";
 
 const AddTask = ({ route }) => {
   const { groupId } = route.params;
@@ -127,6 +128,9 @@ const AddTask = ({ route }) => {
   const handleStatus = () => {
     setStatus("High");
   };
+
+  const themeColor =
+    ThemeContext._currentValue.theme == "light" ? "#1a2138" : "white";
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}> */}
@@ -171,16 +175,19 @@ const AddTask = ({ route }) => {
                   style={{
                     width: "65%",
                     marginRight: 5,
-                    borderColor: "black",
+                    borderColor: themeColor,
                     borderWidth: 1,
                     borderRadius: 15,
                     padding: 5,
                   }}
                   value={inputSaver}
                   onChangeText={setInputSaver}
+                  color={themeColor}
                   placeholder="type the task here"
+                  placeholderTextColor={themeColor}
                   returnKeyType="done"
                   returnKeyLabel="ADD"
+                  maxLength="15"
                   onEndEditing={(r) => handlePress(r)}
                 ></TextInput>
 
