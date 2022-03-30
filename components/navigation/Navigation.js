@@ -12,6 +12,9 @@ import GroupMemberList from "../GroupMemberList";
 import Signup from "../auth/Signup";
 import Lists from "../Lists";
 import SwipeOut from "../SwipeOut";
+import { SafeAreaView } from "react-native";
+import { ThemeContext } from "../../components/navigation/theme-context";
+
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
@@ -30,8 +33,16 @@ const HomeNavigator = () => (
   </Navigator>
 );
 
-export const Navigation = () => (
-  <NavigationContainer>
-    <HomeNavigator />
-  </NavigationContainer>
-);
+export const Navigation = () => {
+  console.log(ThemeContext._currentValue.theme);
+  const themeColor =
+    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
+
+  return (
+    <SafeAreaView style={{ backgroundColor: themeColor, flex: 1 }}>
+      <NavigationContainer>
+        <HomeNavigator />
+      </NavigationContainer>
+    </SafeAreaView>
+  );
+};

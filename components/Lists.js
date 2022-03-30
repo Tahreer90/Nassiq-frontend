@@ -23,6 +23,7 @@ import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
 import NQHead from "./tools/NQHead";
+import { ThemeContext } from "./navigation/theme-context";
 
 const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclose();
@@ -66,10 +67,11 @@ const Lists = () => {
   // console.log(groupId);
 
   const scrollRef = useRef();
-
+  const themeColor =
+    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
   return (
     <NativeBaseProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: themeColor }}>
         <Layout
           style={{
             flex: 1,
@@ -85,9 +87,7 @@ const Lists = () => {
               textAlign: "center",
               top: 65,
             }}
-          >
-            <MapIcon />
-          </Layout>
+          ></Layout>
           <Pressable onPress={() => Navigation.navigate("Profile")}>
             <NQProfile />
           </Pressable>
