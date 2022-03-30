@@ -25,6 +25,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import * as ImagePicker from "expo-image-picker";
+import { ThemeContext } from "./navigation/theme-context";
 
 const ProfilePage = () => {
   const Navigation = useNavigation();
@@ -58,11 +59,13 @@ const ProfilePage = () => {
       setImage(result);
     }
   };
-  console.log(image.uri ? image.uri : baseUrl + "/" + username.image);
+
+  const themeColor =
+    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: themeColor }}>
       <KeyboardAwareScrollView
-        style={{ backgroundColor: "#FFFFFF" }}
+        style={{ backgroundColor: themeColor, flex: 1 }}
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={styles.container}
         scrollEnabled={false}

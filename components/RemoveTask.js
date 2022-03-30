@@ -2,6 +2,7 @@ import Swipeout from "react-native-swipeout";
 import { StyleSheet, View, Text } from "react-native";
 import { Layout } from "@ui-kitten/components";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ThemeContext } from "./navigation/theme-context";
 
 const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
   var swipeoutBtns = [
@@ -16,6 +17,9 @@ const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
     },
   ];
 
+  const themeColor =
+    ThemeContext._currentValue.theme == "light" ? "#1a2138" : "white";
+
   return (
     <Layout
       style={{ flex: 1, alignContent: "center", justifyContent: "center" }}
@@ -28,7 +32,7 @@ const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
         <Layout
           style={{
             flexDirection: "row",
-            borderColor: "black",
+            borderColor: themeColor,
             borderWidth: 1,
             width: 350,
             height: 43,
@@ -42,7 +46,7 @@ const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
           }}
         >
           <View>
-            <Text>{taskname}</Text>
+            <Text style={{ color: themeColor }}>{taskname}</Text>
           </View>
           <View>
             {type == "High" ? (

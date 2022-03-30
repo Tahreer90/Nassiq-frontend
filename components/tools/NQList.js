@@ -116,19 +116,14 @@ const NQList = ({ group }) => {
                 {task.type == "High" && (
                   <MaterialIcons
                     name="priority-high"
-                    size={24}
+                    size={26}
                     color="#FD6B68"
                     style={{ position: "absolute", right: 27 }}
                   />
                 )}
               </>
             ) : (
-              <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                }}
-              >
+              <>
                 <Text
                   key={task._id}
                   style={{
@@ -137,13 +132,11 @@ const NQList = ({ group }) => {
                     width: 190,
                     backgroundColor: "#242D65",
                     color: "#FFFFFF",
+                    opacity: 1,
                     marginBottom: 1,
                     height: 30,
                     top: 3,
-                    // maxWidth: 180,
-                    // flexWrap: "wrap",
-                    // alignItems: "flex-start",
-                    flexShrink: 1,
+                    left: 3,
                   }}
                 >
                   {task.name}
@@ -151,15 +144,17 @@ const NQList = ({ group }) => {
                 {task.type == "High" && (
                   <MaterialIcons
                     name="priority-high"
-                    size={24}
+                    size={26}
                     color="#FD6B68"
+                    style={{ position: "absolute", right: 27 }}
                   />
                 )}
-              </View>
+              </>
             )}
 
             <FontAwesome
               name="pencil-square-o"
+              // style={{ position: "relative", right: 2 }}
               size={28}
               color="white"
               onPress={() => {
@@ -173,8 +168,8 @@ const NQList = ({ group }) => {
     );
   });
   return (
-    <View style={{ width: width, alignItems: "center" }}>
-      <View style={styles.list}>
+    <Layout style={{ width: width, alignItems: "center" }} level="1">
+      <Layout style={styles.list} level="2">
         <Pressable
           onPress={() => {
             Navigation.navigate("GroupMemberList", {
@@ -207,8 +202,8 @@ const NQList = ({ group }) => {
         <ScrollView>
           <View>{taskList}</View>
         </ScrollView>
-      </View>
-    </View>
+      </Layout>
+    </Layout>
   );
 };
 

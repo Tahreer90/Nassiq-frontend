@@ -121,7 +121,7 @@ const GroupMemberList = ({ route }) => {
                 style={styles.btn}
                 onPress={() => {
                   showToast();
-                  Clipboard.setString(groupId);
+                  Clipboard.setString(`www.nassiq.com/join/group/${groupId}`);
                 }}
               >
                 Invite+
