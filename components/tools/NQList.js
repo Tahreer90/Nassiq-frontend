@@ -42,6 +42,7 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
+            key={task._id}
           >
             <TextInput
               value={taskName}
@@ -85,6 +86,7 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
+            key={task._id}
           >
             <CheckBox
               checked={task.isChecked}
