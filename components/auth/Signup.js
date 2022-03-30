@@ -16,8 +16,15 @@ import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 
-const Signup = ({ navigation }) => {
-  if (authStore.user) navigation.replace("Lists");
+const Signup = ({
+  navigation,
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => {
+  const Navigation = useNavigation();
+
+  if (authStore.user) Navigation.replace("Lists");
 
   authStore.fetchAllUsers();
   const [length, setLength] = React.useState(false);
@@ -29,7 +36,6 @@ const Signup = ({ navigation }) => {
     username: value,
     password: value1,
   };
-  const Navigation = useNavigation();
   let foundUser = null;
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -57,6 +63,7 @@ const Signup = ({ navigation }) => {
   const handleSubmit = () => {
     setLength(false);
     setIsExist(false);
+
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
@@ -65,7 +72,14 @@ const Signup = ({ navigation }) => {
     console.log(!foundUser && value1.length > 6);
     if (value1.length < 6) setLength(true);
     if (foundUser) setIsExist(true);
-    if (!foundUser && value1.length > 6) authStore.signup(user, Navigation);
+    if (!foundUser && value1.length > 6)
+      authStore.signup(
+        user,
+        Navigation,
+        registerForPushNotificationsAsync,
+        setExpoPushToken,
+        expoPushToken
+      );
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>

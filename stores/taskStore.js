@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import groupStore from "./groupStore";
 import { instance, socket } from "./instance";
-
+import axios from "axios";
+import authStore from "./authStore";
 class TaskStore {
   tasks = [];
   constructor() {
@@ -34,6 +35,15 @@ class TaskStore {
       this.tasks.push(response.data);
       socket.emit("frontend", "Add");
       groupStore.fetchGroups();
+      const foundGroup = groupStore.groups.find(
+        (group) => JSON.stringify(group._id) == JSON.stringify(groupId)
+      );
+      const members = foundGroup.user.map((user) => user.expoToken);
+      await axios.post("https://exp.host/--/api/v2/push/send", {
+        to: members,
+        title: "New Task",
+        body: `new task added to ${foundGroup.name} group`,
+      });
       // await groupStore.fetchGroups();
     } catch (error) {
       console.log(error);

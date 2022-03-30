@@ -25,7 +25,11 @@ import authStore from "../stores/authStore";
 import NQHead from "./tools/NQHead";
 import { ThemeContext } from "./navigation/theme-context";
 
-const Lists = () => {
+const Lists = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclose();
   const [visible, setVisible] = React.useState(false);
 

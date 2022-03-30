@@ -18,7 +18,11 @@ import { ThemeContext } from "../../components/navigation/theme-context";
 
 const { Navigator, Screen } = createStackNavigator();
 
-const HomeNavigator = () => (
+const HomeNavigator = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => (
   <Navigator screenOptions={{ headerShown: false }} initialRouteName="Signin">
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
@@ -29,13 +33,46 @@ const HomeNavigator = () => (
     <Screen name="GroupMemberList" component={GroupMemberList} />
     <Screen name="GroupList" component={GroupList} />
     <Screen name="Details" component={Details} />
-    <Screen name="Signin" component={Signin} />
-    <Screen name="Signup" component={Signup} />
-    <Screen name="Lists" component={Lists} />
+    <Screen
+      name="Signin"
+      component={(navigation) => (
+        <Signin
+          navigation={navigation}
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
+    <Screen
+      name="Signup"
+      component={(navigation) => (
+        <Signup
+          navigation={navigation}
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
+    <Screen
+      name="Lists"
+      component={() => (
+        <Lists
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />
+      )}
+    />
   </Navigator>
 );
 
-export const Navigation = () => {
+export const Navigation = ({
+  registerForPushNotificationsAsync,
+  setExpoPushToken,
+  expoPushToken,
+}) => {
   console.log(ThemeContext._currentValue.theme);
   const themeColor =
     ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
@@ -43,7 +80,11 @@ export const Navigation = () => {
   return (
     <SafeAreaView style={{ backgroundColor: themeColor, flex: 1 }}>
       <NavigationContainer>
-        <HomeNavigator />
+        <HomeNavigator
+          expoPushToken={expoPushToken}
+          registerForPushNotificationsAsync={registerForPushNotificationsAsync}
+          setExpoPushToken={setExpoPushToken}
+        />{" "}
       </NavigationContainer>
     </SafeAreaView>
   );

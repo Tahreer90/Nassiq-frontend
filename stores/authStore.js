@@ -20,8 +20,17 @@ class AuthStore {
     }
   };
 
-  signup = async (userData, navigation) => {
+  signup = async (
+    userData,
+    navigation,
+    registerForPushNotificationsAsync,
+    setExpoPushToken,
+    expoPushToken
+  ) => {
     try {
+      await setExpoPushToken(registerForPushNotificationsAsync());
+
+      expoPushToken == "" ? "" : (userData.expoToken = expoPushToken);
       console.log("object");
       const response = await instance.post("/auth/signup", userData);
       const { token } = response.data;
@@ -35,8 +44,18 @@ class AuthStore {
     }
   };
 
-  signin = async (userData, navigation, setCorrect) => {
+  signin = async (
+    userData,
+    navigation,
+    setCorrect,
+    registerForPushNotificationsAsync,
+    setExpoPushToken,
+    expoPushToken
+  ) => {
     try {
+      await setExpoPushToken(registerForPushNotificationsAsync());
+      expoPushToken == "" ? "" : (userData.expoToken = expoPushToken);
+
       const response = await instance.post("/auth/signin", userData);
       const { token } = response.data;
       this.setUser(token);
