@@ -22,6 +22,7 @@ import authStore from "../stores/authStore";
 import { useNavigation } from "@react-navigation/core";
 import { baseUrl } from "../stores/instance";
 import GroupMemberList from "../components/GroupMemberList";
+import GroupList from "./GroupList";
 
 const Profile = () => {
   const username = authStore.user;
@@ -103,31 +104,38 @@ const Profile = () => {
               flex: 1.5,
             }}
           > */}
-          <Layout
+          <Pressable
+            onPress={() => Navigation.navigate("GroupList")}
             style={{
-              flex: 1,
-              flexDirection: "row",
-              margin: 10,
-              borderBottomWidth: 2,
-              borderBottomColor: "#F5F5FF",
-              //   backgroundColor: "#F1F1F5",
+              flex: 1.5,
             }}
-            level="2"
           >
-            <AntDesign
-              name="addusergroup"
-              size={40}
-              color="#FD6B68"
-              style={{ marginLeft: 20 }}
-            />
-            <Text style={styles.text2}>Groups</Text>
-            <MaterialIcons
-              name="arrow-forward-ios"
-              size={24}
-              color="black"
-              style={{ position: "absolute", right: 10, top: 13 }}
-            />
-          </Layout>
+            <Layout
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                margin: 10,
+                borderBottomWidth: 2,
+                borderBottomColor: "#F5F5FF",
+                //   backgroundColor: "#F1F1F5",
+              }}
+              level="2"
+            >
+              <AntDesign
+                name="addusergroup"
+                size={40}
+                color="#FD6B68"
+                style={{ marginLeft: 20 }}
+              />
+              <Text style={styles.text2}>Groups</Text>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={24}
+                color="black"
+                style={{ position: "absolute", right: 10, top: 13 }}
+              />
+            </Layout>
+          </Pressable>
           {/* </Pressable> */}
 
           <Layout

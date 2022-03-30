@@ -7,6 +7,7 @@ import taskStore from "./taskStore";
 // export const baseUrl = "http://localhost:8080";
 // export const baseUrl = "http://192.168.100.77:8080";
 
+
 export const baseUrl = "http://192.168.150.93:8000";
 export const socket = io(baseUrl);
 

@@ -26,8 +26,8 @@ import {
 // import Clipboard from "@react-native-community/clipboard";
 import Toast from "react-native-toast-message";
 import { ScrollView } from "react-native-gesture-handler";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import groupStore from "../stores/groupStore";
+import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { observer } from "mobx-react";
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";

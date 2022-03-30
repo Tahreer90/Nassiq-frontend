@@ -9,6 +9,7 @@ import HomeMain from "../Home";
 import ProfilePage from "../ProfileSetting";
 import AddTask from "../AddTask";
 import GroupMemberList from "../GroupMemberList";
+import GroupList from "../GroupList";
 import Signup from "../auth/Signup";
 import Lists from "../Lists";
 import SwipeOut from "../SwipeOut";
@@ -23,6 +24,7 @@ const HomeNavigator = () => (
     <Screen name="ProfilePage" component={ProfilePage} />
     <Screen name="AddTask" component={AddTask} />
     <Screen name="GroupMemberList" component={GroupMemberList} />
+    <Screen name="GroupList" component={GroupList} />
     <Screen name="Details" component={Details} />
     <Screen name="Signin" component={Signin} />
     <Screen name="Signup" component={Signup} />
