@@ -42,6 +42,7 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
+            key={task._id}
           >
             <TextInput
               value={taskName}
@@ -85,6 +86,7 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
+            key={task._id}
           >
             <CheckBox
               checked={task.isChecked}
@@ -93,23 +95,33 @@ const NQList = ({ group }) => {
               }
             ></CheckBox>
             {task.isChecked ? (
-              <Text
-                key={task._id}
-                style={{
-                  fontSize: 20,
-                  fontWeight: "500",
-                  width: 190,
-                  backgroundColor: "#242D65",
-                  color: "#C5C5C5",
-                  opacity: 1,
-                  marginBottom: 1,
-                  height: 30,
-                  top: 3,
-                  textDecorationLine: "line-through",
-                }}
-              >
-                {task.name}
-              </Text>
+              <>
+                <Text
+                  key={task._id}
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "500",
+                    width: 190,
+                    backgroundColor: "#242D65",
+                    color: "#C5C5C5",
+                    opacity: 1,
+                    marginBottom: 1,
+                    height: 30,
+                    top: 3,
+                    textDecorationLine: "line-through",
+                  }}
+                >
+                  {task.name}
+                </Text>
+                {task.type == "High" && (
+                  <MaterialIcons
+                    name="priority-high"
+                    size={24}
+                    color="#FD6B68"
+                    style={{ position: "absolute", right: 27 }}
+                  />
+                )}
+              </>
             ) : (
               <View
                 style={{
@@ -123,7 +135,7 @@ const NQList = ({ group }) => {
                     fontSize: 20,
                     fontWeight: "500",
                     width: 190,
-                    backgroundColor: "red", // "#242D65",
+                    backgroundColor: "#242D65",
                     color: "#FFFFFF",
                     marginBottom: 1,
                     height: 30,
@@ -136,6 +148,13 @@ const NQList = ({ group }) => {
                 >
                   {task.name}
                 </Text>
+                {task.type == "High" && (
+                  <MaterialIcons
+                    name="priority-high"
+                    size={24}
+                    color="#FD6B68"
+                  />
+                )}
               </View>
             )}
 

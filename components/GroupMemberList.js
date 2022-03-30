@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Keyboard,
   Clipboard,
+  Image,
 } from "react-native";
 import {
   Layout,
@@ -28,9 +29,12 @@ import { ScrollView } from "react-native-gesture-handler";
 import groupStore from "../stores/groupStore";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { observer } from "mobx-react";
+import authStore from "../stores/authStore";
+import { baseUrl } from "../stores/instance";
 
 const GroupMemberList = ({ route }) => {
   //   console.log(groupStore.groups);
+
   const { groupId } = route.params;
   const showToast = () => {
     Toast.show({
@@ -41,40 +45,48 @@ const GroupMemberList = ({ route }) => {
       visibilityTime: 1700,
     });
   };
-  const members = groupStore.groups
-    .find((group) => {
-      return JSON.stringify(group._id) == JSON.stringify(groupId);
-    })
-    .user.map((user) => {
-      return (
-        <Layout
+  const foundGroup = groupStore.groups.find((group) => {
+    return JSON.stringify(group._id) == JSON.stringify(groupId);
+  });
+  const members = foundGroup.user.map((user) => {
+    return (
+      <Layout
+        style={{
+          flexDirection: "row",
+          top: 10,
+          margin: 5,
+          paddingBottom: 5,
+        }}
+        key={user._id}
+      >
+        <Image
+          style={styles.image}
+          source={{ uri: baseUrl + "/" + user.image }}
+        />
+        <Text
           style={{
-            flexDirection: "row",
-            borderBottomWidth: 1,
-            borderBottomColor: "black",
-            margin: 15,
-            paddingBottom: 15,
+            top: 25,
+            fontWeight: "bold",
+            marginLeft: 10,
           }}
         >
-          <Avatar style={{}} size="giant" source={{ uri: user.image }} />
-          <Text
-            style={{
-              top: 20,
-              fontWeight: "bold",
-            }}
-          >
-            {user.username}
-          </Text>
-          {/* <Button
-            style={{ position: "absolute", right: 5, top: 9 }}
-            appearance="ghost"
-            status="primary"
-          >
-            Remove
-          </Button> */}
-        </Layout>
-      );
-    });
+          @{user.username}
+        </Text>
+        <Button
+          style={{
+            position: "absolute",
+            right: 5,
+            top: 17,
+            // borderColor: "#C5C5C5",
+          }}
+          appearance="ghost"
+          status="primary"
+        >
+          Remove
+        </Button>
+      </Layout>
+    );
+  });
   //console.log("1+++++++++++", members);
   //console.log(route.params.id);
   return (
@@ -99,11 +111,11 @@ const GroupMemberList = ({ route }) => {
               <Text
                 style={{
                   top: 10,
-                  left: 10,
+                  alignSelf: "center",
                   fontWeight: "bold",
                 }}
               >
-                Group Name
+                {foundGroup.name} Group Members
               </Text>
               <Button
                 style={styles.btn}
@@ -116,7 +128,17 @@ const GroupMemberList = ({ route }) => {
               </Button>
             </Layout>
           </Layout>
-          <Layout style={{ flex: 9, bottom: 5 }}>
+
+          <Layout
+            style={{
+              flex: 9,
+              top: 3,
+              paddingLeft: 5,
+              paddingRight: 5,
+              borderTopColor: "#C5C5C5",
+              borderTopWidth: 1,
+            }}
+          >
             <ScrollView>{members}</ScrollView>
           </Layout>
         </Layout>
@@ -135,5 +157,10 @@ const styles = StyleSheet.create({
     top: 10,
     marginTop: 10,
     marginLeft: 15,
+  },
+  image: {
+    height: 65,
+    width: 65,
+    borderRadius: 50,
   },
 });

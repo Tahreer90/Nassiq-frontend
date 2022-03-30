@@ -85,6 +85,7 @@ const GroupCreateModal = ({
               >
                 Cancel
               </Button>
+
               <Button
                 style={{ backgroundColor: "#FD6B68" }}
                 onPress={() => {
@@ -92,7 +93,7 @@ const GroupCreateModal = ({
                   handleSubmit();
                 }}
               >
-                Save
+                {modalName == "create" ? "Create" : "Join"}
               </Button>
             </Button.Group>
           </Modal.Footer>
