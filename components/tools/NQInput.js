@@ -7,6 +7,7 @@ const NQInput = ({ value, setValue, placeholder, size }) => {
   return (
     <View>
       <Input
+        autoCapitalize="none"
         style={styles.inpt}
         placeholder={placeholder ?? "Username"}
         returnKeyType="done"

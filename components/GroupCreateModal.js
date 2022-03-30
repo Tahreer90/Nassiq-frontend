@@ -17,7 +17,7 @@ const GroupCreateModal = ({
   const Navigation = useNavigation();
   const [groupName, setGroupName] = useState("");
   const [groupId, setGroupId] = useState("");
-
+  console.log(groupId.split("www.nassiq.com/join/group/")[1]);
   if (showModal) {
     console.log(modalName);
   }
@@ -26,7 +26,10 @@ const GroupCreateModal = ({
       showToast();
       modalName == "create"
         ? await groupStore.createGroup({ name: groupName }, Navigation)
-        : await groupStore.joinGroup(groupId, Navigation);
+        : await groupStore.joinGroup(
+            groupId.split("www.nassiq.com/join/group/")[1],
+            Navigation
+          );
       setShowModal(false);
       onClose();
       setGroupName("");
