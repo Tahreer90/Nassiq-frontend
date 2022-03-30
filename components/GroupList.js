@@ -19,15 +19,18 @@ import groupStore from "../stores/groupStore";
 import Toast from "react-native-toast-message";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import { Navigation } from "./navigation/Navigation";
-import GroupMemberList from "./GroupMemberList";
 import { useNavigation } from "@react-navigation/core";
+import { AntDesign } from "@expo/vector-icons";
+import { baseUrl } from "../stores/instance";
 
 const GroupList = () => {
   const Navigation = useNavigation();
 
   const Groups = groupStore.groups.map((group) => {
     console.log(group);
+    const handleLeave = () => {
+      alert("Are you sure you want to leave this group?");
+    };
     return (
       <Pressable
         onPress={() =>
@@ -38,12 +41,26 @@ const GroupList = () => {
           style={{
             flexDirection: "row",
             borderBottomWidth: 1,
-            borderBottomColor: "black",
+            borderBottomColor: "#C5C5C5",
             margin: 15,
-            paddingBottom: 15,
+            left: 3,
+            paddingBottom: 8,
           }}
         >
-          <Text>{group.name}</Text>
+          <Text style={styles.text}>
+            {group.owner.username} {group.name}
+          </Text>
+          <Avatar
+            size="small"
+            // source={{ uri: baseUrl + "/" + members.image }}
+          />
+          <AntDesign
+            name="deleteusergroup"
+            size={28}
+            color="#FD6B68"
+            style={{ position: "absolute", right: 20 }}
+            onPress={handleLeave}
+          />
         </Layout>
       </Pressable>
     );
@@ -77,7 +94,12 @@ const GroupList = () => {
               </Text>
             </Layout>
           </Layout>
-          <Layout style={{ flex: 9, bottom: 5 }}>
+          <Layout
+            style={{
+              flex: 9,
+              bottom: 5,
+            }}
+          >
             <ScrollView>{Groups}</ScrollView>
           </Layout>
         </Layout>
@@ -88,4 +110,9 @@ const GroupList = () => {
 
 export default GroupList;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: "500",
+    fontSize: 18,
+  },
+});
