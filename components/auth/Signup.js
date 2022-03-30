@@ -14,6 +14,7 @@ import NQInput from "../tools/NQInput";
 import NQPassword from "../tools/NQPassword";
 import authStore from "../../stores/authStore";
 import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react";
 
 const Signup = ({ navigation }) => {
   if (authStore.user) navigation.replace("Lists");
@@ -54,13 +55,17 @@ const Signup = ({ navigation }) => {
   const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
   const handleSubmit = () => {
+    setLength(false);
+    setIsExist(false);
     foundUser = authStore.users.find(
       (user1) => user1.username == user.username
     );
+    console.log(value1.length < 6);
+    console.log(foundUser);
+    console.log(!foundUser && value1.length > 6);
     if (value1.length < 6) setLength(true);
     if (foundUser) setIsExist(true);
-    else if (!foundUser && value1.length > 6)
-      authStore.signup(user, Navigation);
+    if (!foundUser && value1.length > 6) authStore.signup(user, Navigation);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -83,7 +88,7 @@ const Signup = ({ navigation }) => {
             status={true}
             value1={value1}
             setValue1={setValue1}
-            placeholder="Password"
+            placeholder="Password (at least 7 characters)"
             style={{
               marginTop: 30,
             }}
@@ -96,7 +101,7 @@ const Signup = ({ navigation }) => {
 
           {length ? (
             <Text style={styles.txt}>
-              password should contain at least 6 characters!
+              password should contain at least 7 characters!
             </Text>
           ) : (
             <Text></Text>
@@ -128,7 +133,7 @@ const Signup = ({ navigation }) => {
   );
 };
 
-export default Signup;
+export default observer(Signup);
 
 const styles = StyleSheet.create({
   txt: {

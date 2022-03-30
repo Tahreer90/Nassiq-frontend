@@ -22,9 +22,6 @@ import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
 import { baseUrl } from "../stores/instance";
 import taskStore from "../stores/taskStore";
-import { HStack, VStack } from "native-base";
-import groupStore from "../stores/groupStore";
-import SwipeOut from "./SwipeOut";
 import RemoveTask from "./RemoveTask";
 
 const AddTask = ({ route }) => {
@@ -34,12 +31,15 @@ const AddTask = ({ route }) => {
   const { pagevalue } = route.params;
   const Navigation = useNavigation();
   const username = authStore.user;
-  const [status, setStatus] = useState("normal");
+  const [status, setStatus] = useState(null);
   const [visible, setVisible] = React.useState(false);
+  const [color, setColor] = useState("#FD6B68");
 
   const openMenu = () => setVisible(true);
 
-  const closeMenu = () => setVisible(false);
+  const closeMenu = () => {
+    setVisible(false);
+  };
   const [inputSaver, setInputSaver] = useState("");
   console.log(inputSaver);
   const [list, setList] = useState([]);
@@ -66,13 +66,14 @@ const AddTask = ({ route }) => {
         taskname={task.name}
         dfunction={dfunction}
         taskIndex={index}
+        type={task.type}
       />
     </Layout>
     // console.log("MOONNNNNN", list);
 
     // const taskList = list.map((task) => (
     // <>
-    //   {task.type == "urgent" ? (
+    //   {task.type == "High" ? (
     //     <Layout
     //       style={{
     //         flexDirection: "row",
@@ -124,7 +125,7 @@ const AddTask = ({ route }) => {
     // alert(scrollRef);
   };
   const handleStatus = () => {
-    setStatus("urgent");
+    setStatus("High");
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -186,21 +187,34 @@ const AddTask = ({ route }) => {
                 <Menu
                   visible={visible}
                   onDismiss={closeMenu}
-                  anchor={<Button onPress={openMenu}>{status} </Button>}
+                  anchor={
+                    <Button
+                      style={{
+                        borderRadius: 15,
+                        backgroundColor: color,
+                        borderColor: color,
+                      }}
+                      onPress={openMenu}
+                    >
+                      {status ? status : "priority"}
+                    </Button>
+                  }
                 >
                   <Menu.Item
                     onPress={() => {
-                      setStatus("urgent");
+                      setStatus("High");
+                      setColor("#FA7C6C");
                       closeMenu();
                     }}
-                    title="urgent"
+                    title="High"
                   />
                   <Menu.Item
                     onPress={() => {
-                      setStatus("normal");
+                      setStatus("Low");
+                      setColor("#FA9D90");
                       closeMenu();
                     }}
-                    title="normal"
+                    title="Low"
                   />
                 </Menu>
               </Layout>

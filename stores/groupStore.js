@@ -22,8 +22,8 @@ class GroupStore {
     try {
       console.log("==================1", authStore.user);
       const response = await instance.post("/group/new", groupName);
-      await groupStore.fetchGroups();
       await authStore.updateUserInfo();
+      this.groups.push(response.data);
       console.log("==================2", authStore.user);
       // authStore.user.group.push(groupName);
       // Navigation.replace("Lists");

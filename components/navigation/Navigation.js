@@ -19,7 +19,6 @@ const HomeNavigator = () => (
     <Screen name="Home" component={Home} />
     <Screen name="Profile" component={Profile} />
     <Screen name="SwipeOut" component={SwipeOut} />
-
     <Screen name="HomeMain" component={HomeMain} />
     <Screen name="ProfilePage" component={ProfilePage} />
     <Screen name="AddTask" component={AddTask} />
