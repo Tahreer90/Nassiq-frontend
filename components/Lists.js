@@ -1,7 +1,5 @@
 import {
   StyleSheet,
-  Text,
-  View,
   SafeAreaView,
   ScrollView,
   Pressable,
@@ -10,19 +8,16 @@ import {
 import React, { useRef, useState } from "react";
 import NQAdd from "./tools/NQAdd";
 import NQMenu from "./tools/NQMenu";
-import MapIcon from "./tools/MapIcon";
-import { Avatar, Layout } from "@ui-kitten/components";
+import { Layout } from "@ui-kitten/components";
 import NQAction from "./tools/NQAction";
 import NQList from "./tools/NQList";
 import { useDisclose } from "native-base";
 import { NativeBaseProvider } from "native-base";
 import NQProfile from "./tools/NQProfile";
 import groupStore from "../stores/groupStore";
-import taskStore from "../stores/taskStore";
 import { observer } from "mobx-react";
 import { useNavigation } from "@react-navigation/core";
 import authStore from "../stores/authStore";
-import NQHead from "./tools/NQHead";
 import { ThemeContext } from "./navigation/theme-context";
 
 const Lists = ({

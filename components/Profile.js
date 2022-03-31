@@ -23,7 +23,6 @@ import { useNavigation } from "@react-navigation/core";
 import { baseUrl } from "../stores/instance";
 import GroupMemberList from "../components/GroupMemberList";
 import GroupList from "./GroupList";
-import { set } from "react-native-reanimated";
 
 const Profile = () => {
   const username = authStore.user;

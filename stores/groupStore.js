@@ -58,7 +58,8 @@ class GroupStore {
   kick = async (groupId, userId) => {
     try {
       await instance.put(`/group/remove/${groupId}/${userId}`);
-      this.fetchGroups();
+      await this.fetchGroups();
+      await authStore.updateUserInfo();
       socket.emit("frontend", "Join");
     } catch (error) {
       console.log(error);
@@ -68,7 +69,9 @@ class GroupStore {
   leaveGroup = async (groupId) => {
     try {
       await instance.put(`/group/leave/${groupId}`);
-      this.fetchGroups();
+      await this.fetchGroups();
+      await authStore.updateUserInfo();
+
       socket.emit("frontend", "Join");
     } catch (error) {
       console.log(error);
