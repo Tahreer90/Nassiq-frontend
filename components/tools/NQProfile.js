@@ -23,21 +23,20 @@ const NQProfile = () => {
           size={45}
           source={{ uri: baseUrl + "/" + username.image }}
         />
-        <HStack>
+        <HStack style={{}}>
           <Text
             style={{
               fontSize: 22,
               fontWeight: "500",
               marginLeft: 5,
+              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            Hello {username.username}
+            Hello {username.username}{" "}
+            {<MaterialIcons name="arrow-forward-ios" size={18} />}
           </Text>
-          <MaterialIcons
-            name="arrow-forward-ios"
-            size={18}
-            style={{ left: 5, top: 7 }}
-          />
         </HStack>
       </VStack>
     </View>

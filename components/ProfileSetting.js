@@ -61,7 +61,7 @@ const ProfilePage = () => {
   };
 
   const themeColor =
-    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
+    ThemeContext._currentValue.theme == "light" ? "white" : "#232C43";
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: themeColor }}>
       <KeyboardAwareScrollView
@@ -151,7 +151,7 @@ const ProfilePage = () => {
                 <Text style={styles.txt}>password doesn't match</Text>
               )}
             </Layout>
-            <Layout style={{ flex: 1, alignItems: "center" }}>
+            <Layout style={{ flex: 1, alignItems: "center", marginTop: 25 }}>
               <Button onPress={handleSave} style={styles.btn}>
                 Save
               </Button>

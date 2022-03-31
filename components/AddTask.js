@@ -44,9 +44,12 @@ const AddTask = ({ route }) => {
   const [inputSaver, setInputSaver] = useState("");
   console.log(inputSaver);
   const [list, setList] = useState([]);
+
   const handlePress = (event) => {
     console.log("enter");
-
+    if (inputSaver.trim() === "") {
+      return;
+    }
     setList([...list, { name: inputSaver, type: status }]);
     setInputSaver("");
   };
@@ -187,7 +190,7 @@ const AddTask = ({ route }) => {
                   placeholderTextColor={themeColor}
                   returnKeyType="done"
                   returnKeyLabel="ADD"
-                  maxLength="15"
+                  maxLength="20"
                   onEndEditing={(r) => handlePress(r)}
                 ></TextInput>
 

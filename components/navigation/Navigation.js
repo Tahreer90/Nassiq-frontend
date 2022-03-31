@@ -75,7 +75,7 @@ export const Navigation = ({
 }) => {
   console.log(ThemeContext._currentValue.theme);
   const themeColor =
-    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
+    ThemeContext._currentValue.theme == "light" ? "white" : "#232C43";
 
   return (
     <SafeAreaView style={{ backgroundColor: themeColor, flex: 1 }}>

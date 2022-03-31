@@ -1,7 +1,7 @@
 import Swipeout from "react-native-swipeout";
 import { StyleSheet, View, Text } from "react-native";
 import { Layout } from "@ui-kitten/components";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "./navigation/theme-context";
 
 const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
@@ -51,7 +51,7 @@ const RemoveTask = ({ dfunction, taskname, taskIndex, type }) => {
           <View>
             {type == "High" ? (
               <>
-                <MaterialIcons name="priority-high" size={24} color="#FD6B68" />
+                <AntDesign name="rocket1" size={24} color="#FD6B68" />
               </>
             ) : (
               <></>

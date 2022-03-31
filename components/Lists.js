@@ -72,7 +72,7 @@ const Lists = ({
 
   const scrollRef = useRef();
   const themeColor =
-    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
+    ThemeContext._currentValue.theme == "light" ? "white" : "#232C43";
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: themeColor }}>

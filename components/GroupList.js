@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Clipboard,
+  Alert,
 } from "react-native";
 import {
   Layout,
@@ -23,7 +24,7 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { baseUrl } from "../stores/instance";
 import authStore from "../stores/authStore";
-
+import { observer } from "mobx-react";
 const GroupList = () => {
   const Navigation = useNavigation();
 
@@ -37,7 +38,30 @@ const GroupList = () => {
     .map((group) => {
       console.log(group);
       const handleLeave = () => {
-        alert("Are you sure you want to leave this group?");
+        Alert.alert(
+          "Hold on!",
+          "Are you sure you want to leave group?",
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+              style: "cancel",
+            },
+            {
+              text: "Yes",
+              onPress: () => groupStore.leaveGroup(group._id),
+              style: "cancel",
+            },
+          ],
+          {
+            cancelable: true,
+            onDismiss: () =>
+              Alert.alert(
+                "This alert was dismissed by tapping outside of the alert dialog."
+              ),
+          }
+        );
+        // alert("Are you sure you want to leave this group?");
       };
       return (
         <Pressable
@@ -116,7 +140,7 @@ const GroupList = () => {
   );
 };
 
-export default GroupList;
+export default observer(GroupList);
 
 const styles = StyleSheet.create({
   text: {
