@@ -22,49 +22,57 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { baseUrl } from "../stores/instance";
+import authStore from "../stores/authStore";
 
 const GroupList = () => {
   const Navigation = useNavigation();
 
-  const Groups = groupStore.groups.map((group) => {
-    console.log(group);
-    const handleLeave = () => {
-      alert("Are you sure you want to leave this group?");
-    };
-    return (
-      <Pressable
-        onPress={() =>
-          Navigation.navigate("GroupMemberList", { groupId: group._id })
-        }
-      >
-        <Layout
-          style={{
-            flexDirection: "row",
-            borderBottomWidth: 1,
-            borderBottomColor: "#C5C5C5",
-            margin: 15,
-            left: 3,
-            paddingBottom: 8,
-          }}
+  const Groups = groupStore.groups
+    .filter((group) =>
+      group.user.find(
+        (groupp) =>
+          JSON.stringify(groupp._id) == JSON.stringify(authStore.user._id)
+      )
+    )
+    .map((group) => {
+      console.log(group);
+      const handleLeave = () => {
+        alert("Are you sure you want to leave this group?");
+      };
+      return (
+        <Pressable
+          onPress={() =>
+            Navigation.navigate("GroupMemberList", { groupId: group._id })
+          }
         >
-          <Text style={styles.text}>
-            {group.owner.username} {group.name}
-          </Text>
-          <Avatar
-            size="small"
-            // source={{ uri: baseUrl + "/" + members.image }}
-          />
-          <AntDesign
-            name="deleteusergroup"
-            size={28}
-            color="#FD6B68"
-            style={{ position: "absolute", right: 20 }}
-            onPress={handleLeave}
-          />
-        </Layout>
-      </Pressable>
-    );
-  });
+          <Layout
+            style={{
+              flexDirection: "row",
+              borderBottomWidth: 1,
+              borderBottomColor: "#C5C5C5",
+              margin: 15,
+              left: 3,
+              paddingBottom: 8,
+            }}
+          >
+            <Text style={styles.text}>
+              {group.owner.username} {group.name}
+            </Text>
+            <Avatar
+              size="small"
+              // source={{ uri: baseUrl + "/" + members.image }}
+            />
+            <AntDesign
+              name="deleteusergroup"
+              size={28}
+              color="#FD6B68"
+              style={{ position: "absolute", right: 20 }}
+              onPress={handleLeave}
+            />
+          </Layout>
+        </Pressable>
+      );
+    });
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

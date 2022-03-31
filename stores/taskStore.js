@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import groupStore from "./groupStore";
 import { instance, socket } from "./instance";
 import axios from "axios";
-import authStore from "./authStore";
 class TaskStore {
   tasks = [];
   constructor() {

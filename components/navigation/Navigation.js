@@ -84,7 +84,7 @@ export const Navigation = ({
           expoPushToken={expoPushToken}
           registerForPushNotificationsAsync={registerForPushNotificationsAsync}
           setExpoPushToken={setExpoPushToken}
-        />{" "}
+        />
       </NavigationContainer>
     </SafeAreaView>
   );

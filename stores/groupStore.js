@@ -44,14 +44,24 @@ class GroupStore {
         (group) => JSON.stringify(group._id) == JSON.stringify(groupId)
       );
       const members = foundGroup.user.map((user) => user.expoToken);
+      socket.emit("frontend", "Join");
       await axios.post("https://exp.host/--/api/v2/push/send", {
         to: members,
         title: "New member",
         body: `new member joined ${foundGroup.name} group`,
       });
-      socket.emit("frontend", "Join");
     } catch (error) {
       console.log(" GroupStore ~ createGroup = ~ error", error);
+    }
+  };
+
+  kick = async (groupId, userId) => {
+    try {
+      await instance.put(`/group/remove/${groupId}/${userId}`);
+      this.fetchGroups();
+      socket.emit("frontend", "Join");
+    } catch (error) {
+      console.log(error);
     }
   };
 }

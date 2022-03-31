@@ -81,8 +81,14 @@ const GroupMemberList = ({ route }) => {
           }}
           appearance="ghost"
           status="primary"
+          onPress={() => {
+            groupStore.kick(groupId, user._id);
+          }}
         >
-          Remove
+          {authStore.user._id == foundGroup.owner._id &&
+          foundGroup.owner._id != user._id
+            ? "Remove"
+            : ""}
         </Button>
       </Layout>
     );
