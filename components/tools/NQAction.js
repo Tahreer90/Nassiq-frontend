@@ -9,8 +9,9 @@ import { ThemeContext } from "../navigation/theme-context";
 function NQAction({ isOpen, onClose, groupId, scrollRef, xvalue, pagevalue }) {
   const [showModal, setShowModal] = useState(false);
   const [showModal1, setShowModal1] = useState(false);
+
   const themeColor =
-    ThemeContext._currentValue.theme == "light" ? "white" : "#1a2138";
+    ThemeContext._currentValue.theme == "light" ? "white" : "#232C43";
   const themeColor2 =
     ThemeContext._currentValue.theme == "light" ? "#1a2138" : "white";
   const Navigation = useNavigation();

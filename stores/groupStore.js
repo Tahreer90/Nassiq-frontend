@@ -64,6 +64,16 @@ class GroupStore {
       console.log(error);
     }
   };
+
+  leaveGroup = async (groupId) => {
+    try {
+      await instance.put(`/group/leave/${groupId}`);
+      this.fetchGroups();
+      socket.emit("frontend", "Join");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const groupStore = new GroupStore();

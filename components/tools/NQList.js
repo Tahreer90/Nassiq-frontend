@@ -42,7 +42,6 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
-            key={task._id}
           >
             <TextInput
               value={taskName}
@@ -86,7 +85,6 @@ const NQList = ({ group }) => {
               backgroundColor: "#242D65",
               alignItems: "center",
             }}
-            key={task._id}
           >
             <CheckBox
               checked={task.isChecked}
@@ -114,11 +112,11 @@ const NQList = ({ group }) => {
                   {task.name}
                 </Text>
                 {task.type == "High" && (
-                  <MaterialIcons
-                    name="priority-high"
-                    size={26}
+                  <AntDesign
+                    name="rocket1"
+                    size={24}
                     color="#FD6B68"
-                    style={{ position: "absolute", right: 27 }}
+                    style={{ position: "absolute", right: 31 }}
                   />
                 )}
               </>
@@ -142,11 +140,11 @@ const NQList = ({ group }) => {
                   {task.name}
                 </Text>
                 {task.type == "High" && (
-                  <MaterialIcons
-                    name="priority-high"
-                    size={26}
+                  <AntDesign
+                    name="rocket1"
+                    size={24}
                     color="#FD6B68"
-                    style={{ position: "absolute", right: 27 }}
+                    style={{ position: "absolute", right: 31 }}
                   />
                 )}
               </>

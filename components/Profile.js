@@ -23,18 +23,24 @@ import { useNavigation } from "@react-navigation/core";
 import { baseUrl } from "../stores/instance";
 import GroupMemberList from "../components/GroupMemberList";
 import GroupList from "./GroupList";
+import { set } from "react-native-reanimated";
 
 const Profile = () => {
   const username = authStore.user;
 
   const Navigation = useNavigation();
-
+  const [value, setValue] = React.useState(false);
   const themeContext = React.useContext(ThemeContext);
   // themeContext.toggleTheme
   const handleSubmit = () => {
     authStore.signout();
     Navigation.goBack();
     Navigation.replace("Signin");
+  };
+
+  const handleValue = () => {
+    themeContext.toggleTheme();
+    setValue(!value);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -157,9 +163,18 @@ const Profile = () => {
             />
             <Text style={styles.text2}>Mode</Text>
             <Switch
-              onChange={themeContext.toggleTheme}
+              // onChange={themeContext.toggleTheme}
               size="sm"
               style={{ position: "absolute", right: 10, top: 13 }}
+              value={value}
+              onValueChange={handleValue}
+              disabled={false}
+              // activeText={"On"}
+              // inActiveText={"Off"}
+              backgroundActive={"green"}
+              backgroundInactive={"gray"}
+              circleActiveColor={"#30a566"}
+              circleInActiveColor={"#000000"}
             />
           </Layout>
           <Layout
